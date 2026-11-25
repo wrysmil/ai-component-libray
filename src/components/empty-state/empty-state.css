@@ -61,11 +61,6 @@
   line-height: 1.4;
 }
 
-/* The title is a heading — the browser default margin is removed above. */
-h3.aicl-empty-state__title {
-  margin: 0;
-}
-
 .aicl-empty-state__description {
   margin: 0;
   max-width: var(--aicl-empty-state-max-width);
