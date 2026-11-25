@@ -110,3 +110,18 @@
     animation-duration: 2400ms;
   }
 }
+
+/* Explicit variant classes — the base rule already is the primary look, the
+   modifier makes the variant targetable from the outside. */
+.aicl-button--primary {
+  --aicl-button-bg: var(--aicl-color-primary, #2f6feb);
+  --aicl-button-bg-hover: var(--aicl-color-primary-hover, #2559c4);
+  --aicl-button-fg: var(--aicl-color-on-primary, #ffffff);
+  --aicl-button-border: var(--aicl-color-primary, #2f6feb);
+}
+
+.aicl-button--medium {
+  --aicl-button-padding-y: var(--aicl-space-2, 8px);
+  --aicl-button-padding-x: var(--aicl-space-4, 16px);
+  --aicl-button-font-size: var(--aicl-font-size-sm, 14px);
+}

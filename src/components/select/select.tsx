@@ -1,6 +1,7 @@
-import { forwardRef, useId, useState } from 'react';
+import { forwardRef, useEffect, useId, useState } from 'react';
 import type { ChangeEvent } from 'react';
 
+import { warnDev } from '../../core/warn.js';
 import type { SelectProps } from './types.js';
 
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select(
@@ -26,6 +27,15 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select
   const [internalValue, setInternalValue] = useState(defaultValue ?? '');
   const isControlled = value !== undefined;
   const currentValue = isControlled ? value : internalValue;
+
+  useEffect(() => {
+    if (isControlled && !onChange) {
+      warnDev(
+        '<Select> is controlled (`value` was provided) but has no `onChange` handler — ' +
+          'the selection cannot change.',
+      );
+    }
+  }, [isControlled, onChange]);
 
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const nextValue = event.target.value;

@@ -1,6 +1,7 @@
-import { forwardRef, useEffect, useId, useRef, useState } from 'react';
+import { forwardRef, useCallback, useEffect, useId, useRef, useState } from 'react';
 import type { ChangeEvent } from 'react';
 
+import { warnDev } from '../../core/warn.js';
 import type { CheckboxProps } from './types.js';
 
 export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(
@@ -28,20 +29,35 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
   const isControlled = checked !== undefined;
   const currentChecked = isControlled ? checked : internalChecked;
 
-  const setRefs = (node: HTMLInputElement | null) => {
-    inputRef.current = node;
-    if (typeof ref === 'function') {
-      ref(node);
-    } else if (ref) {
-      ref.current = node;
-    }
-  };
+  const setRefs = useCallback(
+    (node: HTMLInputElement | null) => {
+      inputRef.current = node;
+      if (typeof ref === 'function') {
+        ref(node);
+      } else if (ref) {
+        ref.current = node;
+      }
+    },
+    [ref],
+  );
 
+  useEffect(() => {
+    if (isControlled && !onChange) {
+      warnDev(
+        '<Checkbox> is controlled (`checked` was provided) but has no `onChange` handler — ' +
+          'the checkbox cannot be toggled.',
+      );
+    }
+  }, [isControlled, onChange]);
+
+  // The `indeterminate` state is a DOM property: it has to be re-applied
+  // whenever it changes and whenever the checked state changes (the browser
+  // clears the flag after a click).
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.indeterminate = indeterminate;
     }
-  }, [indeterminate]);
+  }, [indeterminate, currentChecked]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const nextChecked = event.target.checked;

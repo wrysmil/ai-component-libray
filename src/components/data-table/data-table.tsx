@@ -1,7 +1,7 @@
-import { forwardRef, useMemo, useState } from 'react';
-import type { ReactNode } from 'react';
+import { forwardRef, useEffect, useMemo, useState } from 'react';
+import type { ForwardedRef, ForwardRefRenderFunction, ReactElement, ReactNode } from 'react';
 
-import type { DataTableColumn, DataTableProps, DataTableRow } from './types.js';
+import type { DataTableColumn, DataTableProps, DataTableRow, SortDirection } from './types.js';
 
 /** Compare two cell values in a stable, locale aware way. */
 function compareValues(a: unknown, b: unknown): number {
@@ -11,6 +11,11 @@ function compareValues(a: unknown, b: unknown): number {
   if (typeof a === 'number' && typeof b === 'number') return a - b;
   if (typeof a === 'boolean' && typeof b === 'boolean') return Number(a) - Number(b);
   return String(a).localeCompare(String(b), 'zh-CN');
+}
+
+/** Read a cell of a row without requiring an index signature. */
+function cellValue(row: object, key: string): unknown {
+  return (row as Record<string, unknown>)[key];
 }
 
 /** Turn an arbitrary cell value into something React is able to render. */
@@ -25,32 +30,42 @@ function renderValue(value: unknown): ReactNode {
   }
 }
 
-export const DataTable = forwardRef<HTMLDivElement, DataTableProps>(function DataTable(
+function DataTableInner<Row extends object = DataTableRow>(
   {
     columns,
     rows,
+    rowKey,
     sortBy,
     defaultSortBy,
+    sortDirection,
+    defaultSortDirection = 'ascending',
     onSortChange,
     pageSize = 10,
     emptyText = '暂无数据',
     loading = false,
     className,
     ...rest
-  },
-  ref,
+  }: DataTableProps<Row>,
+  ref: ForwardedRef<HTMLDivElement>,
 ) {
   const [internalSortBy, setInternalSortBy] = useState<string | undefined>(defaultSortBy);
+  const [internalSortDirection, setInternalSortDirection] = useState<SortDirection>(
+    defaultSortDirection,
+  );
   const [page, setPage] = useState(0);
 
   const activeSortBy = sortBy ?? internalSortBy;
+  const activeSortDirection = sortDirection ?? internalSortDirection;
 
   const sortedRows = useMemo(() => {
     if (!activeSortBy) return rows;
     const copy = [...rows];
-    copy.sort((a, b) => compareValues(a[activeSortBy], b[activeSortBy]));
+    copy.sort((a, b) => {
+      const result = compareValues(cellValue(a, activeSortBy), cellValue(b, activeSortBy));
+      return activeSortDirection === 'descending' ? -result : result;
+    });
     return copy;
-  }, [rows, activeSortBy]);
+  }, [rows, activeSortBy, activeSortDirection]);
 
   const size = pageSize > 0 ? Math.floor(pageSize) : 10;
   const totalPages = Math.max(1, Math.ceil(sortedRows.length / size));
@@ -58,10 +73,28 @@ export const DataTable = forwardRef<HTMLDivElement, DataTableProps>(function Dat
   const pageRows = sortedRows.slice(currentPage * size, currentPage * size + size);
   const columnCount = Math.max(columns.length, 1);
 
-  const handleSort = (column: DataTableColumn<DataTableRow>) => {
+  // Keep the internal page in sync when the data set shrinks.
+  useEffect(() => {
+    if (page !== currentPage) {
+      setPage(currentPage);
+    }
+  }, [currentPage, page]);
+
+  const handleSort = (column: DataTableColumn<Row>) => {
     if (!column.sortable) return;
+    const isSameColumn = column.key === activeSortBy;
+    const nextDirection: SortDirection =
+      isSameColumn && activeSortDirection === 'ascending' ? 'descending' : 'ascending';
     setInternalSortBy(column.key);
-    if (onSortChange) onSortChange(column.key);
+    setInternalSortDirection(nextDirection);
+    onSortChange?.(column.key, nextDirection);
+  };
+
+  const resolveRowKey = (row: Row, index: number): string => {
+    if (rowKey) return rowKey(row, index);
+    const id = cellValue(row, 'id');
+    if (typeof id === 'string' || typeof id === 'number') return String(id);
+    return `row-${index}`;
   };
 
   const classNames = ['aicl-data-table', className ?? ''].filter(Boolean).join(' ');
@@ -74,13 +107,18 @@ export const DataTable = forwardRef<HTMLDivElement, DataTableProps>(function Dat
             <tr className="aicl-data-table__row">
               {columns.map((column) => {
                 const isSorted = column.key === activeSortBy;
+                const ariaSort = column.sortable
+                  ? isSorted
+                    ? activeSortDirection
+                    : 'none'
+                  : undefined;
                 return (
                   <th
                     key={column.key}
                     className="aicl-data-table__header-cell"
                     scope="col"
                     style={column.width ? { width: column.width } : undefined}
-                    aria-sort={column.sortable ? (isSorted ? 'ascending' : 'none') : undefined}
+                    aria-sort={ariaSort}
                   >
                     {column.sortable ? (
                       <button
@@ -94,7 +132,11 @@ export const DataTable = forwardRef<HTMLDivElement, DataTableProps>(function Dat
                           aria-hidden="true"
                           data-state={isSorted ? 'sorted' : 'idle'}
                         >
-                          {isSorted ? '▲' : '⇅'}
+                          {isSorted
+                            ? activeSortDirection === 'descending'
+                              ? '▼'
+                              : '▲'
+                            : '⇅'}
                         </span>
                       </button>
                     ) : (
@@ -119,17 +161,20 @@ export const DataTable = forwardRef<HTMLDivElement, DataTableProps>(function Dat
                 </td>
               </tr>
             ) : (
-              pageRows.map((row, index) => (
-                <tr key={index} className="aicl-data-table__row">
-                  {columns.map((column) => (
-                    <td key={column.key} className="aicl-data-table__cell">
-                      {column.render
-                        ? column.render(row, index)
-                        : renderValue(row[column.key])}
-                    </td>
-                  ))}
-                </tr>
-              ))
+              pageRows.map((row, index) => {
+                const globalIndex = currentPage * size + index;
+                return (
+                  <tr key={resolveRowKey(row, globalIndex)} className="aicl-data-table__row">
+                    {columns.map((column) => (
+                      <td key={column.key} className="aicl-data-table__cell">
+                        {column.render
+                          ? column.render(row, globalIndex)
+                          : renderValue(cellValue(row, column.key))}
+                      </td>
+                    ))}
+                  </tr>
+                );
+              })
             )}
           </tbody>
         </table>
@@ -162,4 +207,14 @@ export const DataTable = forwardRef<HTMLDivElement, DataTableProps>(function Dat
       ) : null}
     </div>
   );
-});
+}
+
+/**
+ * The table is generic over the row shape: `DataTable<Project>` gives the
+ * `render` callbacks and the `rows` prop the precise type of the consumer.
+ */
+export const DataTable = forwardRef(
+  DataTableInner as ForwardRefRenderFunction<HTMLDivElement, DataTableProps>,
+) as unknown as <Row extends object = DataTableRow>(
+  props: DataTableProps<Row> & { ref?: ForwardedRef<HTMLDivElement> },
+) => ReactElement;

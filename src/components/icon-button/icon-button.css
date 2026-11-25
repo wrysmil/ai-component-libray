@@ -101,3 +101,8 @@
     --aicl-icon-button-border: var(--aicl-color-border, #374151);
   }
 }
+
+.aicl-icon-button--medium {
+  --aicl-icon-button-size: var(--aicl-space-8, 32px);
+  --aicl-icon-button-font-size: var(--aicl-font-size-md, 16px);
+}

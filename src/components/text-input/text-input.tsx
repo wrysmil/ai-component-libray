@@ -1,6 +1,7 @@
-import { forwardRef, useId, useState } from 'react';
+import { forwardRef, useEffect, useId, useState } from 'react';
 import type { ChangeEvent } from 'react';
 
+import { warnDev } from '../../core/warn.js';
 import type { TextInputProps } from './types.js';
 
 export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(function TextInput(
@@ -18,6 +19,8 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(function T
     className,
     style,
     id,
+    'aria-describedby': ariaDescribedByProp,
+    'aria-invalid': ariaInvalidProp,
     ...rest
   },
   ref,
@@ -31,6 +34,15 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(function T
   const isControlled = value !== undefined;
   const currentValue = isControlled ? value : internalValue;
 
+  useEffect(() => {
+    if (isControlled && !onChange) {
+      warnDev(
+        '<TextInput> is controlled (`value` was provided) but has no `onChange` handler — ' +
+          'the input will snap back to the given value.',
+      );
+    }
+  }, [isControlled, onChange]);
+
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const nextValue = event.target.value;
     if (!isControlled) {
@@ -39,7 +51,9 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(function T
     onChange?.(nextValue);
   };
 
-  const describedBy = [hint ? hintId : null, error ? errorId : null]
+  // The hint / error ids are always kept, a caller provided description is
+  // appended instead of replacing them.
+  const describedBy = [hint ? hintId : null, error ? errorId : null, ariaDescribedByProp ?? null]
     .filter(Boolean)
     .join(' ');
 
@@ -74,7 +88,7 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(function T
         placeholder={placeholder}
         required={required}
         disabled={disabled}
-        aria-invalid={error ? true : undefined}
+        aria-invalid={error ? true : ariaInvalidProp}
         aria-describedby={describedBy === '' ? undefined : describedBy}
         {...rest}
       />

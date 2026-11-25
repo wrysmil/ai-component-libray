@@ -157,6 +157,31 @@ async function main(): Promise<void> {
     return;
   }
 
+  // Read the artefact back from the disk: the guard above compares the number
+  // of rendered routes with the number of components, which would stay true
+  // even when a page was not written. Every expected file has to exist and
+  // has to contain the rendered markup.
+  const missing: string[] = [];
+  for (const route of routes) {
+    const outputPath =
+      route === '/' ? templatePath : path.join(distDir, route.replace(/^\//, ''), 'index.html');
+    if (!existsSync(outputPath)) {
+      missing.push(route);
+      continue;
+    }
+    const html = readFileSync(outputPath, 'utf8');
+    if (!html.includes('<div id="root">') || html.includes('<div id="root"></div>')) {
+      missing.push(`${route} (empty root element)`);
+    }
+  }
+  if (missing.length > 0) {
+    console.error(
+      `[prerender] ${missing.length} page(s) were not written correctly: ${missing.join(', ')}.`,
+    );
+    process.exitCode = 1;
+    return;
+  }
+
   console.log(`[prerender] produced ${produced.length} HTML files:`);
   for (const file of produced) {
     console.log(`  ${file}`);

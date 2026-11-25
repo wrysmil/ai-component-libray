@@ -108,3 +108,14 @@
     background: var(--aicl-color-surface-hover, #1f2937);
   }
 }
+
+/* State hooks: the visual state itself is driven by the native `:checked` /
+   `:indeterminate` pseudo classes, these classes let a consumer target the
+   state of the checkbox from the outside. */
+.aicl-checkbox--checked .aicl-checkbox__control {
+  border-color: var(--aicl-checkbox-bg-checked);
+}
+
+.aicl-checkbox--indeterminate .aicl-checkbox__control {
+  border-color: var(--aicl-checkbox-bg-checked);
+}

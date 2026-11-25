@@ -34,7 +34,7 @@ import type { CardProps } from '../../src/components/card/types.js';
 
 import { DataTable } from '../../src/components/data-table/data-table.js';
 import '../../src/components/data-table/data-table.css';
-import type { DataTableProps } from '../../src/components/data-table/types.js';
+import type { DataTableProps, DataTableRow } from '../../src/components/data-table/types.js';
 
 import { Modal } from '../../src/components/modal/modal.js';
 import '../../src/components/modal/modal.css';
@@ -60,6 +60,15 @@ export interface ComponentDescriptor {
   id: string;
   /** Render the component with the given (user controlled) props. */
   render: (props: Record<string, unknown>) => ReactElement;
+  /**
+   * Optional hook that wires the interactive callbacks of a controlled
+   * component to the preview state, so that the preview behaves like a real
+   * controlled component instead of a frozen one.
+   */
+  link?: (
+    props: Record<string, unknown>,
+    update: (name: string, value: unknown) => void,
+  ) => Record<string, unknown>;
 }
 
 export const registry: Record<string, ComponentDescriptor> = {
@@ -74,14 +83,26 @@ export const registry: Record<string, ComponentDescriptor> = {
   'text-input': {
     id: 'text-input',
     render: (props) => createElement(TextInput, props as unknown as TextInputProps),
+    link: (props, update) => ({
+      ...props,
+      onChange: (value: string) => update('value', value),
+    }),
   },
   select: {
     id: 'select',
     render: (props) => createElement(Select, props as unknown as SelectProps),
+    link: (props, update) => ({
+      ...props,
+      onChange: (value: string) => update('value', value),
+    }),
   },
   checkbox: {
     id: 'checkbox',
     render: (props) => createElement(Checkbox, props as unknown as CheckboxProps),
+    link: (props, update) => ({
+      ...props,
+      onChange: (checked: boolean) => update('checked', checked),
+    }),
   },
   card: {
     id: 'card',
@@ -89,11 +110,16 @@ export const registry: Record<string, ComponentDescriptor> = {
   },
   'data-table': {
     id: 'data-table',
-    render: (props) => createElement(DataTable, props as unknown as DataTableProps),
+    render: (props) =>
+      createElement(DataTable<DataTableRow>, props as unknown as DataTableProps<DataTableRow>),
   },
   modal: {
     id: 'modal',
     render: (props) => createElement(Modal, props as unknown as ModalProps),
+    link: (props, update) => ({
+      ...props,
+      onClose: () => update('open', false),
+    }),
   },
   tooltip: {
     id: 'tooltip',
@@ -102,6 +128,10 @@ export const registry: Record<string, ComponentDescriptor> = {
   tabs: {
     id: 'tabs',
     render: (props) => createElement(Tabs, props as unknown as TabsProps),
+    link: (props, update) => ({
+      ...props,
+      onChange: (value: string) => update('value', value),
+    }),
   },
   progress: {
     id: 'progress',

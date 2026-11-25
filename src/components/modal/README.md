@@ -67,6 +67,7 @@ export function ConfirmDialog() {
 | `size` | `"small" \| "medium" \| "large"` | 否 | `"medium"` | 弹窗尺寸。 |
 | `closeOnOverlayClick` | `boolean` | 否 | `true` | 点击遮罩时是否关闭。 |
 | `closeOnEsc` | `boolean` | 否 | `true` | 按下 Esc 时是否关闭。 |
+| `closeLabel` | `string` | 否 | `"关闭"` | 关闭按钮的无障碍名称。 |
 | `className` | `string` | 否 | — | 追加到根元素（遮罩层）的类名。 |
 | `style` | `CSSProperties` | 否 | — | 追加到根元素（遮罩层）的行内样式。 |
 
@@ -85,3 +86,7 @@ export function ConfirmDialog() {
 **Q：`open` 为 `false` 时会渲染遮罩吗？** 不会，`open` 为 `false` 时组件返回 `null`，页面上不会留下任何节点。
 
 **Q：Esc 监听会被清理吗？** 会，`useEffect` 的清理函数会在弹窗关闭或组件卸载时移除 `keydown` 监听。
+
+**Q：焦点会怎么处理？** 打开时焦点进入对话框（`Tab` / `Shift+Tab` 在对话框内循环，不会跑到背后的页面），关闭时焦点归还给打开弹窗的那个元素。
+
+**Q：点击弹窗内部会关闭吗？** 不会。只有点击遮罩本身才会关闭；弹窗内部的点击会触发传给 `<Modal onClick>` 的处理器。

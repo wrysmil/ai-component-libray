@@ -70,3 +70,5 @@ export function Agreement() {
 **Q：`onChange` 收到的是事件吗？** 不是，收到的是新的布尔勾选状态。
 
 **Q：半选状态怎么实现？** 传入 `indeterminate`，组件会设置原生 `input.indeterminate` 属性并同步 `aria-checked="mixed"`。
+
+**Q：受控模式下没有传 `onChange` 会怎样？** 复选框无法切换，组件会在控制台打印一条警告（`[ai-component-libray] <Checkbox> is controlled …`）提醒补齐回调。

@@ -77,3 +77,9 @@ const [tab, setTab] = useState('posts');
 **Q：同时传了 `value` 和 `defaultValue` 怎么办？** 以 `value` 为准，组件进入受控模式，`defaultValue` 被忽略。
 
 **Q：`onChange` 会收到什么？** 收到被选中的标签 `id` 字符串，便于直接写入受控状态。
+
+**Q：键盘怎么操作？** 采用 roving tabindex：`Tab` 只进入当前选中的标签，`←` / `→`（以及 `↑` / `↓`）在标签之间移动并同时切换选中项，`Home` / `End` 跳到第一个 / 最后一个标签，禁用的标签会被跳过。
+
+**Q：页面上有多个 Tabs 会冲突吗？** 不会，每个实例的 `id` / `aria-controls` / `aria-labelledby` 都带实例前缀。
+
+**Q：受控模式下没有传 `onChange` 会怎样？** 标签不会切换，组件会在控制台打印一条警告提醒补齐回调。

@@ -5,6 +5,7 @@ import { afterEach, describe, expect, it } from 'vitest';
 
 import { App } from '../App.js';
 import { components } from '../manifest.js';
+import { keywordSearchProvider } from '../../../src/core/search.js';
 
 // The repository does not enable the vitest globals, therefore the automatic
 // cleanup of the testing library is registered explicitly.
@@ -28,17 +29,35 @@ function renderCatalog(initialEntry = '/') {
 }
 
 describe('catalog page', () => {
-  it('lists every component of the manifest with a link to its detail page', () => {
-    const { container } = renderCatalog();
+  it('lists every component of the manifest with a link to its detail page', async () => {
+    renderCatalog();
 
-    const cards = screen.getAllByTestId('component-card');
-    expect(cards).toHaveLength(components.length);
+    // The catalogue is paged — every component has to be reachable, not only
+    // the ones of the first page.
+    const seen = new Set<string>();
 
-    for (const entry of components) {
-      const link = container.querySelector(`a[href="/components/${entry.id}"]`);
-      expect(link).not.toBeNull();
-      expect(link?.textContent).toContain(entry.title);
+    for (;;) {
+      const cards = screen.getAllByTestId('component-card');
+      expect(cards.length).toBeGreaterThan(0);
+
+      for (const card of cards) {
+        const link = card.querySelector('a[href^="/components/"]');
+        const href = link?.getAttribute('href') ?? '';
+        seen.add(href.replace('/components/', ''));
+        expect(link?.textContent).toContain(
+          components.find((entry) => entry.id === href.replace('/components/', ''))?.title ?? '',
+        );
+      }
+
+      const next = screen.queryByRole('button', { name: 'Next' }) as HTMLButtonElement | null;
+      if (!next || next.disabled) break;
+      fireEvent.click(next);
+      await waitFor(() => {
+        expect(screen.getByTestId('result-count').textContent).toContain('components found');
+      });
     }
+
+    expect([...seen].sort()).toEqual(components.map((entry) => entry.id).sort());
   });
 
   it('shows name, description, category and tags of a component', () => {
@@ -62,7 +81,8 @@ describe('catalog page', () => {
     renderCatalog();
 
     const before = screen.getAllByTestId('component-card').length;
-    expect(before).toBe(components.length);
+    expect(before).toBeGreaterThan(0);
+    expect(before).toBeLessThanOrEqual(components.length);
 
     fireEvent.change(screen.getByLabelText('Search'), {
       target: { value: 'zzz-no-such-component' },
@@ -82,18 +102,39 @@ describe('catalog page', () => {
   it('narrows the list down when the keyword matches', async () => {
     renderCatalog();
 
-    const entry = components[0];
-    expect(entry).toBeDefined();
-    if (!entry) return;
+    const token = '表格';
+    const expected = keywordSearchProvider
+      .search(components, { q: token })
+      .map((match) => match.entry.id);
+
+    expect(expected.length).toBeGreaterThan(0);
+    expect(expected.length).toBeLessThan(components.length);
 
     fireEvent.change(screen.getByLabelText('Search'), {
-      target: { value: entry.keywords[0] ?? entry.name },
+      target: { value: token },
     });
 
     await waitFor(() => {
-      expect(screen.getAllByTestId('component-card').length).toBeLessThanOrEqual(components.length);
+      const cards = screen.getAllByTestId('component-card');
+      const rendered = cards.map((card) =>
+        (card.querySelector('a[href^="/components/"]')?.getAttribute('href') ?? '').replace(
+          '/components/',
+          '',
+        ),
+      );
+      expect(rendered.sort()).toEqual([...expected].sort());
     });
-    expect(screen.getAllByTestId('component-card').length).toBeGreaterThan(0);
+  });
+
+  it('restores the filters from the URL', () => {
+    renderCatalog('/?q=modal&category=overlay');
+
+    expect((screen.getByLabelText('Search') as HTMLInputElement).value).toBe('modal');
+    expect((screen.getByLabelText('Category') as HTMLSelectElement).value).toBe('overlay');
+
+    const cards = screen.getAllByTestId('component-card');
+    expect(cards).toHaveLength(1);
+    expect(cards[0]?.textContent).toContain('Modal');
   });
 
   it('filters by category, writes it to the URL and only shows that category', async () => {

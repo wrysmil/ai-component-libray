@@ -105,3 +105,7 @@
     --aicl-text-input-muted: var(--aicl-color-text-muted, #9ca3af);
   }
 }
+
+.aicl-text-input--disabled .aicl-text-input__label {
+  color: var(--aicl-text-input-muted);
+}

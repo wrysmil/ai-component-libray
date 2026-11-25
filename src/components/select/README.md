@@ -69,7 +69,9 @@ export function FruitPicker() {
 
 `SelectOption` 结构：`{ label: string; value: string; disabled?: boolean }`。
 
-其余原生 `select` 属性（`id`、`name`、`multiple`、`required` 等）全部透传。
+其余原生 `select` 属性（`id`、`name`、`required` 等）全部透传。
+
+> **多选暂不支持**：组件是单值选择器（受控值是 `string`），原生 `multiple` 属性被显式排除在类型之外 —— 透传它会让受控 `value` 与 `onChange` 的语义失效。需要多选时请使用原生 `select multiple` 或后续的 MultiSelect 组件。
 
 ## 示例
 
@@ -84,3 +86,5 @@ export function FruitPicker() {
 **Q：`onChange` 收到的是事件还是值？** 收到的是选中的字符串值，事件对象不会透出。
 
 **Q：占位选项可以选中吗？** 可以，它只是一个值为空字符串的普通选项，用于表示“未选择”。
+
+**Q：受控模式下没有传 `onChange` 会怎样？** 输入会被回弹到传入的 `value`，组件会在控制台打印一条警告（`[ai-component-libray] <Select> is controlled …`）提醒补齐回调。

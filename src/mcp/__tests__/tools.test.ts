@@ -45,6 +45,9 @@ describe('search_components', () => {
 
   it('filters by category', () => {
     const result = searchComponents(components, { query: 'a', category: 'overlay' });
+    // The assertion is only meaningful when the filter really produced
+    // results — an empty result would satisfy `every` trivially.
+    expect(result.results.length).toBeGreaterThan(0);
     expect(result.results.every((item) => item.category === 'overlay')).toBe(true);
   });
 

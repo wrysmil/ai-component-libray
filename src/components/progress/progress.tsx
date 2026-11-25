@@ -19,8 +19,11 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>(function Progr
   },
   ref,
 ) {
-  const safeMax = max > 0 ? max : 1;
-  const clamped = Math.min(Math.max(value, 0), safeMax);
+  const safeMax = Number.isFinite(max) && max > 0 ? max : 1;
+  // `value` may be undefined / NaN (e.g. an emptied number input) — the
+  // progress bar must never render "NaN%".
+  const safeValue = Number.isFinite(value) ? value : 0;
+  const clamped = Math.min(Math.max(safeValue, 0), safeMax);
   const percent = Math.round((clamped / safeMax) * 100);
   const text = label ?? `${percent}%`;
   const showText = showLabel || label !== undefined;
@@ -33,6 +36,16 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>(function Progr
     .filter(Boolean)
     .join(' ');
 
+  // The `progressbar` role always sits on the root element, so that the
+  // accessible name (e.g. `aria-label`) and the role are on the same node.
+  const progressProps = {
+    role: 'progressbar',
+    'aria-valuenow': clamped,
+    'aria-valuemin': 0,
+    'aria-valuemax': safeMax,
+    'aria-valuetext': text,
+  } as const;
+
   if (variant === 'circular') {
     const offset = CIRCLE_CIRCUMFERENCE * (1 - clamped / safeMax);
 
@@ -42,11 +55,7 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>(function Progr
         className={classNames}
         style={style}
         data-variant={variant}
-        role="progressbar"
-        aria-valuenow={clamped}
-        aria-valuemin={0}
-        aria-valuemax={safeMax}
-        aria-valuetext={text}
+        {...progressProps}
         {...rest}
       >
         <svg
@@ -89,16 +98,10 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>(function Progr
       className={classNames}
       style={style}
       data-variant={variant}
+      {...progressProps}
       {...rest}
     >
-      <div
-        className="aicl-progress__track"
-        role="progressbar"
-        aria-valuenow={clamped}
-        aria-valuemin={0}
-        aria-valuemax={safeMax}
-        aria-valuetext={text}
-      >
+      <div className="aicl-progress__track">
         <div
           className="aicl-progress__indicator"
           style={{ width: `${percent}%` }}

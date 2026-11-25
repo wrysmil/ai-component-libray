@@ -12,7 +12,10 @@ export interface SelectOption {
 export interface SelectProps
   extends Omit<
     SelectHTMLAttributes<HTMLSelectElement>,
-    'onChange' | 'value' | 'defaultValue' | 'size'
+    // `multiple` is intentionally not supported: the component is a single
+    // value select, exposing the native attribute would silently break the
+    // controlled `value` / `onChange` contract.
+    'onChange' | 'value' | 'defaultValue' | 'size' | 'multiple'
   > {
   /**
    * 选项列表。

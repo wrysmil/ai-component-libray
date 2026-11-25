@@ -107,3 +107,8 @@
     --aicl-select-border-hover: var(--aicl-color-primary, #3b82f6);
   }
 }
+
+.aicl-select--medium {
+  --aicl-select-padding-y: var(--aicl-space-2, 8px);
+  --aicl-select-font-size: var(--aicl-font-size-sm, 14px);
+}

@@ -27,7 +27,12 @@ The control panel is generated from the manifest props:
 | `boolean` | checkbox |
 | `number` | number input |
 | `string` | text input |
-| anything else (arrays, objects, functions) | JSON editor with an inline parse error |
+| anything else (arrays, objects) | JSON editor with an inline parse error |
+| function props (`onChange`, `onClose`, ...) | no control — the preview wires them to the preview state (see below) |
+
+### The preview is interactive
+
+A controlled component (one that receives a `value` / `checked` / `open` prop) would be frozen without a callback. The preview registry (`site/src/registry.ts`) therefore connects the callbacks of the controlled components to the state of the preview: typing into the previewed `TextInput` updates the preview, clicking a tab switches the panel, and the previewed `Modal` can be opened with the `open` control and closed again with Esc or the close button.
 
 ## Source viewer and copy buttons
 
@@ -46,7 +51,7 @@ site/dist/index.html                     # catalogue page
 site/dist/components/<id>/index.html     # one page per component
 ```
 
-The prerender step fails (non-zero exit code) when the number of produced pages does not match `1 + number of components`.
+The prerender step fails (non-zero exit code) when the number of produced pages does not match `1 + number of components` **or** when a page was not written correctly (the files are read back from the disk and checked for the rendered markup).
 
 ## Theme and accessibility
 

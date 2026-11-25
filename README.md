@@ -70,10 +70,11 @@ scripts/bench-search.ts   # search latency benchmark
 2. Write the props interface in `types.ts` and give **every** prop a JSDoc description — the generator rejects undocumented props. Use inline string literal unions (`variant?: 'a' | 'b'`) so the catalogue can derive the allowed values.
 3. Write `meta.ts` with `satisfies ComponentMeta` (`id`, `name`, `title`, `category`, `tags`, `keywords`, `description`, `summary`, `whenToUse`, `whenNotToUse`, `propsType`, `dependencies`).
 4. Register the component in `src/index.ts` — the generator fails when an export is missing.
-5. Run `npm run generate:manifest` and commit the regenerated `src/manifest/manifest.json`.
-6. Run `npm run verify` (typecheck → tests → manifest diff → build).
+5. Register the component in the showcase site: add an entry to `site/src/registry.ts` (the id → implementation mapping that renders the live preview) and, if the component needs a meaningful first render, its default props to `site/src/demo-props.ts`. A test (`site/src/__tests__/registry.test.ts`) fails when a component of the manifest is missing in the registry.
+6. Run `npm run generate:manifest` and commit the regenerated `src/manifest/manifest.json`.
+7. Run `npm run verify` (typecheck → tests → manifest diff → build).
 
-The catalogue, the REST API, the MCP server and the showcase site all read the generated manifest, so no extra registration step is needed anywhere else.
+The catalogue, the REST API and the MCP server read the generated manifest, so they need no further registration; the showcase site additionally needs the preview registration of step 5.
 
 ## Scripts
 

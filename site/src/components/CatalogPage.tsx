@@ -8,7 +8,7 @@ import type { Category } from '../../../src/core/types.js';
 import { categories, categoryLabel, components, tags } from '../manifest.js';
 
 /** Number of cards per page. */
-const PAGE_SIZE = 24;
+const PAGE_SIZE = 6;
 
 /** Debounce of the keyword input before it is written to the URL. */
 const DEBOUNCE_MS = 200;

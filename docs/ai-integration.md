@@ -20,7 +20,7 @@ Environment variables:
 | --- | --- | --- |
 | `PORT` | `8787` | HTTP port |
 | `HOST` | `127.0.0.1` | Bind address |
-| `AICP_MCP_TOKEN` | *(unset)* | Optional bearer token placeholder — see the security note below |
+| `AICP_MCP_TOKEN` | *(unset)* | Optional bearer token — when set, the API and the MCP endpoint require `Authorization: Bearer <token>` (see §3) |
 
 A ready-made check of a running server (uses the official MCP client):
 
@@ -48,6 +48,7 @@ Endpoints:
     "ai-component-libray": {
       "type": "http",
       "url": "http://127.0.0.1:8787/mcp",
+      // Only needed when the server runs with AICP_MCP_TOKEN.
       "headers": {
         "Authorization": "Bearer <token>"
       }
@@ -83,11 +84,22 @@ A stdio adapter is provided as a convenience (it is not the primary channel):
 }
 ```
 
-## 3. Authentication placeholder
+## 3. Authentication
 
-The MVP does **not** enforce authentication. The `Authorization: Bearer <token>` header above is a placeholder; the server only reads it when `AICP_MCP_TOKEN` is set.
+Authentication is **optional** and driven by one environment variable:
 
-> **Security note:** the service has no access control. Do not expose it directly to the public internet — put it behind a gateway (nginx, an API gateway, an SSH tunnel) that terminates TLS and enforces authentication. The startup log repeats this warning.
+| `AICP_MCP_TOKEN` | Behaviour |
+| --- | --- |
+| *not set* (default) | The server does **not** check any credentials. Every request to `/api/*` and `/mcp` is served. |
+| set to a non-empty value | Every request to `/api/*` and `/mcp` must carry the header `Authorization: Bearer <value>`. A missing or wrong token is answered with `401` and `{"error":{"code":"UNAUTHORIZED"}}`. `GET /api/health` stays open, so that a probe does not need the secret. |
+
+```bash
+AICP_MCP_TOKEN=$(openssl rand -hex 24) npm run dev:server
+```
+
+The token is compared in constant time; the value itself is never written to the log (the startup log only states whether authentication is enabled).
+
+> **Security note:** without `AICP_MCP_TOKEN` the service has no access control. Do not expose it directly to the public internet — put it behind a gateway (nginx, an API gateway, an SSH tunnel) that terminates TLS and enforces authentication, or set `AICP_MCP_TOKEN`. The startup log repeats this warning.
 
 ## 4. The tools
 
@@ -128,6 +140,8 @@ Returns:
 ```
 
 `whenToUse` / `whenNotToUse` exist so the model can decide *whether* the component fits before asking for the code; `score` and `matchedOn` show why it matched.
+
+> The entry above is an **excerpt** (the real one is longer); the complete entry is returned by `GET /api/components/data-table` or `get_component({ "id": "data-table" })`.
 
 ### `get_component(id)`
 

@@ -163,3 +163,7 @@
     --aicl-data-table-accent: var(--aicl-color-primary, #6ea8fe);
   }
 }
+
+.aicl-data-table__sort-label {
+  font-weight: 600;
+}

@@ -85,3 +85,12 @@
   --aicl-empty-state-description-size: var(--aicl-font-size-xs, 12px);
   --aicl-empty-state-icon-size: var(--aicl-space-8, 32px);
 }
+
+.aicl-empty-state--md {
+  --aicl-empty-state-padding-y: var(--aicl-space-8, 32px);
+  --aicl-empty-state-padding-x: var(--aicl-space-6, 24px);
+  --aicl-empty-state-gap: var(--aicl-space-3, 12px);
+  --aicl-empty-state-title-size: var(--aicl-font-size-md, 16px);
+  --aicl-empty-state-description-size: var(--aicl-font-size-sm, 14px);
+  --aicl-empty-state-icon-size: var(--aicl-space-12, 48px);
+}

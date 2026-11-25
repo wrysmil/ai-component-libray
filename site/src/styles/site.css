@@ -616,6 +616,7 @@ pre {
 }
 
 .preview {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -624,6 +625,16 @@ pre {
   background: var(--surface-2);
   border: 1px dashed var(--border-strong);
   border-radius: var(--radius-sm);
+}
+
+/*
+ * The Modal renders a `position: fixed` overlay. Inside the preview the
+ * overlay is limited to the preview area, so that opening it never covers
+ * the whole page (and never traps the visitor on the detail page).
+ */
+.preview .aicl-modal {
+  position: absolute;
+  overflow: auto;
 }
 
 .preview__missing {

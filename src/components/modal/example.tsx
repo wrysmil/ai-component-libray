@@ -15,7 +15,13 @@ export function ModalExample(props: ModalProps) {
       <button type="button" onClick={() => setOpen(true)}>
         打开弹窗
       </button>
-      <button type="button" onClick={() => setSize('large')}>
+      <button
+        type="button"
+        onClick={() => {
+          setSize('large');
+          setOpen(true);
+        }}
+      >
         打开大尺寸弹窗
       </button>
 

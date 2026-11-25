@@ -24,4 +24,9 @@ export interface ModalProps extends HTMLAttributes<HTMLDivElement> {
    * @default true
    */
   closeOnEsc?: boolean;
+  /**
+   * 关闭按钮的无障碍名称。
+   * @default "关闭"
+   */
+  closeLabel?: string;
 }

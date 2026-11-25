@@ -74,3 +74,5 @@ export function NameField() {
 **Q：同时传 `value` 和 `defaultValue` 会怎样？** `value` 优先，组件按受控模式渲染，`defaultValue` 被忽略。
 
 **Q：错误信息会被屏幕阅读器读到吗？** 会，错误信息通过 `aria-describedby` 与输入框关联，并标记为 `role="alert"`。
+
+**Q：受控模式下没有传 `onChange` 会怎样？** 输入会被回弹到传入的 `value`，组件会在控制台打印一条警告（`[ai-component-libray] <TextInput> is controlled …`）提醒补齐回调。

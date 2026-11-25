@@ -113,6 +113,19 @@ function reflectProps(
     );
   }
   const type = checker.getDeclaredTypeOfSymbol(symbol);
+  // A generic props interface (`DataTableProps<Row extends object = DataTableRow>`)
+  // is documented with its default type argument, so that the manifest stays
+  // readable for a consumer that never mentions the type parameter.
+  const typeParameterDefaults = new Map<string, string>();
+  for (const parameter of declaration.typeParameters ?? []) {
+    if (!parameter.default) continue;
+    const defaultType = checker.getTypeFromTypeNode(parameter.default);
+    const defaultText = stripImportPrefixes(
+      checker.typeToString(defaultType, undefined, ts.TypeFormatFlags.NoTruncation),
+    );
+    typeParameterDefaults.set(parameter.name.text, defaultText);
+  }
+
   const props: ReflectedProp[] = [];
   for (const property of checker.getPropertiesOfType(type)) {
     // Only the props declared by this interface — inherited members (e.g. from
@@ -131,6 +144,12 @@ function reflectProps(
       ts.TypeFormatFlags.NoTruncation | ts.TypeFormatFlags.UseFullyQualifiedType,
     );
     typeText = stripImportPrefixes(typeText);
+    for (const [parameter, defaultText] of typeParameterDefaults) {
+      typeText = typeText.replace(
+        new RegExp(`\\b${parameter}\\b`, 'gu'),
+        defaultText,
+      );
+    }
     if (!required) {
       typeText = typeText.replace(/\s*\|\s*undefined$/u, '');
     }

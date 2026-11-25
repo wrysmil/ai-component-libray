@@ -162,4 +162,55 @@ describe('component page', () => {
     const tables = screen.getAllByRole('table');
     expect(tables.some((table) => table.textContent?.includes('Name') === true)).toBe(true);
   });
+
+  it('drops an invalid JSON draft when the props are reset', () => {
+    renderComponentPage('data-table');
+
+    const textarea = screen.getByLabelText(/columns/i) as HTMLTextAreaElement;
+    fireEvent.change(textarea, { target: { value: '{ not json' } });
+    expect(screen.getByRole('alert').textContent).toContain('Invalid JSON');
+
+    fireEvent.click(screen.getByRole('button', { name: /reset props/i }));
+
+    expect(textarea.value).toContain('"title": "Name"');
+    expect(screen.queryByRole('alert')).toBeNull();
+  });
+
+  it('lets the visitor type in the preview of a controlled component', () => {
+    renderComponentPage('text-input');
+
+    const input = screen.getByLabelText('Full name') as HTMLInputElement;
+    fireEvent.change(input, { target: { value: 'Ada' } });
+
+    expect((screen.getByLabelText('Full name') as HTMLInputElement).value).toBe('Ada');
+  });
+
+  it('switches the tab of the preview', () => {
+    renderComponentPage('tabs');
+
+    const preview = within(screen.getByTestId('preview'));
+    expect(preview.getByRole('tabpanel').textContent).toContain('Overview panel');
+
+    fireEvent.click(preview.getByRole('tab', { name: 'Props' }));
+
+    expect(preview.getByRole('tabpanel').textContent).toContain('Props panel');
+    expect(preview.getByRole('tab', { name: 'Props' }).getAttribute('aria-selected')).toBe('true');
+  });
+
+  it('opens and closes the modal of the preview', () => {
+    renderComponentPage('modal');
+
+    // The modal is closed by default — it must never trap the visitor on the
+    // page.
+    expect(screen.queryByRole('dialog')).toBeNull();
+
+    const open = document.getElementById('prop-open') as HTMLInputElement;
+    expect(open).not.toBeNull();
+    fireEvent.click(open);
+
+    expect(screen.getByRole('dialog')).toBeTruthy();
+
+    fireEvent.keyDown(document, { key: 'Escape' });
+    expect(screen.queryByRole('dialog')).toBeNull();
+  });
 });

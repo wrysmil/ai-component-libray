@@ -59,12 +59,24 @@ function ComponentDetail({ entry }: { entry: ManifestEntry }) {
   const descriptor = registry[entry.id];
   const initial = useMemo(() => initialValues(entry), [entry]);
   const [values, setValues] = useState<Record<string, unknown>>(initial);
+  const [resetCount, setResetCount] = useState(0);
 
   const handleChange = (name: string, value: unknown) => {
     setValues((previous) => ({ ...previous, [name]: value }));
   };
 
-  const handleReset = () => setValues(initial);
+  const handleReset = () => {
+    setValues(initial);
+    // The counter forces the controls to drop invalid drafts as well.
+    setResetCount((previous) => previous + 1);
+  };
+
+  // Controlled components get their callbacks wired to the preview state, so
+  // that the preview really behaves like the component in a project.
+  const previewProps = useMemo(() => {
+    if (!descriptor?.link) return values;
+    return descriptor.link(values, handleChange);
+  }, [descriptor, values]);
 
   return (
     <article className="detail">
@@ -95,7 +107,7 @@ function ComponentDetail({ entry }: { entry: ManifestEntry }) {
           <h2 className="section__title">Preview</h2>
           <div className="preview" data-testid="preview">
             {descriptor ? (
-              descriptor.render(values)
+              descriptor.render(previewProps)
             ) : (
               <p className="preview__missing">
                 This component is not registered in the preview registry.
@@ -115,6 +127,7 @@ function ComponentDetail({ entry }: { entry: ManifestEntry }) {
             values={values}
             onChange={handleChange}
             onReset={handleReset}
+            resetKey={resetCount}
           />
         </section>
       </div>

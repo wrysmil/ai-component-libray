@@ -3,6 +3,7 @@ import type { Server } from 'node:http';
 import type { AddressInfo } from 'node:net';
 
 import { createApp } from '../app.js';
+import { components } from '../../manifest/data.js';
 
 let server: Server;
 let baseUrl: string;
@@ -29,7 +30,9 @@ describe('GET /api/components', () => {
     const body = (await response.json()) as { items: unknown[]; total: number };
     expect(Array.isArray(body.items)).toBe(true);
     expect(body.total).toBe(body.items.length);
-    expect(body.total).toBeGreaterThanOrEqual(10);
+    // The exact number of the manifest — a component that disappeared has to
+    // fail the test.
+    expect(body.total).toBe(components.length);
   });
 
   it('matches a Chinese keyword', async () => {
@@ -127,6 +130,8 @@ describe('GET /api/health', () => {
     expect(response.status).toBe(200);
     const body = (await response.json()) as { status: string; components: number };
     expect(body.status).toBe('ok');
-    expect(body.components).toBeGreaterThanOrEqual(10);
+    // The exact number of the manifest — a component that disappeared from the
+    // manifest has to fail the test.
+    expect(body.components).toBe(components.length);
   });
 });

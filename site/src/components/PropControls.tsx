@@ -11,6 +11,10 @@ export interface PropControlsProps {
   onChange: (name: string, value: unknown) => void;
   /** Optional "reset" button handler. */
   onReset?: () => void;
+  /**
+   * Incremented on every reset — the controls use it to drop invalid drafts.
+   */
+  resetKey?: number;
 }
 
 function stringifyValue(value: unknown): string {
@@ -27,6 +31,14 @@ function asString(value: unknown): string {
 }
 
 /**
+ * Function props (`onChange`, `onClose`, ...) are wired by the preview
+ * registry, they cannot be edited as JSON — therefore they get no control.
+ */
+function isFunctionProp(prop: PropMeta): boolean {
+  return prop.type.includes('=>');
+}
+
+/**
  * A control for props whose value is not a simple string / number / boolean
  * (arrays, objects, React nodes, functions, ...).
  *
@@ -38,15 +50,18 @@ function JsonPropControl({
   description,
   value,
   onChange,
+  resetKey = 0,
 }: {
   name: string;
   description: string;
   value: unknown;
   onChange: (name: string, value: unknown) => void;
+  resetKey?: number;
 }) {
   const [draft, setDraft] = useState(() => stringifyValue(value));
   const [error, setError] = useState<string | null>(null);
   const lastValue = useRef<unknown>(value);
+  const lastResetKey = useRef(resetKey);
 
   useEffect(() => {
     if (!Object.is(lastValue.current, value)) {
@@ -55,6 +70,16 @@ function JsonPropControl({
       setError(null);
     }
   }, [value]);
+
+  // A reset drops the draft as well — otherwise an invalid JSON draft (and
+  // its error message) survives the reset.
+  useEffect(() => {
+    if (lastResetKey.current === resetKey) return;
+    lastResetKey.current = resetKey;
+    lastValue.current = value;
+    setDraft(stringifyValue(value));
+    setError(null);
+  }, [resetKey, value]);
 
   const handleChange = (text: string) => {
     setDraft(text);
@@ -107,13 +132,21 @@ function JsonPropControl({
  * a list of options → `<select>`, `boolean` → checkbox, `number` → number
  * input, `string` → text input, everything else → JSON textarea.
  */
-export function PropControls({ props, values, onChange, onReset }: PropControlsProps) {
+export function PropControls({
+  props,
+  values,
+  onChange,
+  onReset,
+  resetKey = 0,
+}: PropControlsProps) {
+  const editable = props.filter((prop) => !isFunctionProp(prop));
+
   return (
     <div className="controls">
-      {props.length === 0 ? (
+      {editable.length === 0 ? (
         <p className="controls__empty">This component does not expose any props.</p>
       ) : null}
-      {props.map((prop) => {
+      {editable.map((prop) => {
         const value = values[prop.name];
         const id = `prop-${prop.name}`;
         const label = (
@@ -172,7 +205,15 @@ export function PropControls({ props, values, onChange, onReset }: PropControlsP
                 value={typeof value === 'number' ? String(value) : ''}
                 onChange={(event) => {
                   const raw = event.target.value;
-                  onChange(prop.name, raw === '' ? undefined : Number(raw));
+                  if (raw === '') {
+                    onChange(prop.name, undefined);
+                    return;
+                  }
+                  const parsed = Number(raw);
+                  // A value that is not a number is never written back, the
+                  // preview would show `NaN`.
+                  if (!Number.isFinite(parsed)) return;
+                  onChange(prop.name, parsed);
                 }}
               />
               <p className="control__hint">{prop.description}</p>
@@ -204,6 +245,7 @@ export function PropControls({ props, values, onChange, onReset }: PropControlsP
               description={prop.description}
               value={value}
               onChange={onChange}
+              resetKey={resetKey}
             />
           </div>
         );

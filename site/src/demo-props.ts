@@ -3,6 +3,11 @@
  *
  * They provide a meaningful first render for every component and give the
  * auto generated controls a sensible starting point.
+ *
+ * The callbacks (`onChange`, `onClose`) are **not** part of this map: they are
+ * wired by the preview registry (`site/src/registry.ts`), so that the preview
+ * of a controlled component behaves like a real controlled component instead
+ * of a frozen one.
  */
 
 export const demoProps: Record<string, Record<string, unknown>> = {
@@ -27,7 +32,6 @@ export const demoProps: Record<string, Record<string, unknown>> = {
     type: 'text',
     required: false,
     disabled: false,
-    onChange: () => undefined,
   },
   select: {
     label: 'Framework',
@@ -40,14 +44,12 @@ export const demoProps: Record<string, Record<string, unknown>> = {
     placeholder: 'Pick one',
     size: 'medium',
     disabled: false,
-    onChange: () => undefined,
   },
   checkbox: {
     label: 'Accept the terms of service',
     checked: true,
     indeterminate: false,
     disabled: false,
-    onChange: () => undefined,
   },
   card: {
     title: 'Component of the day',
@@ -75,14 +77,13 @@ export const demoProps: Record<string, Record<string, unknown>> = {
     loading: false,
   },
   modal: {
-    open: true,
+    open: false,
     title: 'Delete component',
     size: 'medium',
     closeOnOverlayClick: true,
     closeOnEsc: true,
     footer: 'Close',
     children: 'This action cannot be undone.',
-    onClose: () => undefined,
   },
   tooltip: {
     content: 'Explains what this control does',
@@ -99,7 +100,6 @@ export const demoProps: Record<string, Record<string, unknown>> = {
     ],
     value: 'overview',
     variant: 'line',
-    onChange: () => undefined,
   },
   progress: {
     value: 40,

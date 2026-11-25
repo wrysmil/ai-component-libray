@@ -1,7 +1,11 @@
-import { forwardRef, useEffect, useId, useRef, useState } from 'react';
-import type { FocusEvent, MouseEvent } from 'react';
+import { cloneElement, forwardRef, isValidElement, useEffect, useId, useRef, useState } from 'react';
+import type { FocusEvent, KeyboardEvent, MouseEvent, ReactElement } from 'react';
 
 import type { TooltipProps } from './types.js';
+
+interface TriggerProps {
+  'aria-describedby'?: string;
+}
 
 export const Tooltip = forwardRef<HTMLSpanElement, TooltipProps>(function Tooltip(
   {
@@ -16,13 +20,16 @@ export const Tooltip = forwardRef<HTMLSpanElement, TooltipProps>(function Toolti
     onMouseLeave,
     onFocus,
     onBlur,
+    onKeyDown,
     ...rest
   },
   ref,
 ) {
   const [open, setOpen] = useState(false);
   const timerRef = useRef<number | null>(null);
-  const tooltipId = useId();
+  // `useId` produces ids with colons (`:r0:`), which are not valid in a CSS
+  // selector — they are stripped so that `#id` works for the consumer.
+  const tooltipId = `aicl-tooltip-${useId().replace(/:/g, '')}`;
 
   const clearTimer = () => {
     if (timerRef.current !== null) {
@@ -71,41 +78,64 @@ export const Tooltip = forwardRef<HTMLSpanElement, TooltipProps>(function Toolti
   };
 
   const handleMouseEnter = (event: MouseEvent<HTMLSpanElement>) => {
-    if (onMouseEnter) onMouseEnter(event);
+    onMouseEnter?.(event);
     show();
   };
 
   const handleMouseLeave = (event: MouseEvent<HTMLSpanElement>) => {
-    if (onMouseLeave) onMouseLeave(event);
+    onMouseLeave?.(event);
     hide();
   };
 
   const handleFocus = (event: FocusEvent<HTMLSpanElement>) => {
-    if (onFocus) onFocus(event);
+    onFocus?.(event);
     show();
   };
 
   const handleBlur = (event: FocusEvent<HTMLSpanElement>) => {
-    if (onBlur) onBlur(event);
+    onBlur?.(event);
     hide();
+  };
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLSpanElement>) => {
+    onKeyDown?.(event);
+    // Escape dismisses the bubble.
+    if (event.key === 'Escape') {
+      hide();
+    }
   };
 
   const classNames = ['aicl-tooltip', className ?? ''].filter(Boolean).join(' ');
   const visible = open && !disabled;
+
+  /**
+   * The accessible name of the bubble has to live on the element the user
+   * actually interacts with. When `children` is a single element, the
+   * `aria-describedby` attribute is injected into it; otherwise it stays on
+   * the wrapper (the only element that then carries the description).
+   */
+  const trigger = isValidElement(children)
+    ? cloneElement(children as ReactElement<TriggerProps>, {
+        'aria-describedby': visible
+          ? tooltipId
+          : (children as ReactElement<TriggerProps>).props['aria-describedby'],
+      })
+    : children;
 
   return (
     <span
       ref={ref}
       className={classNames}
       style={style}
-      aria-describedby={visible ? tooltipId : undefined}
+      aria-describedby={visible && !isValidElement(children) ? tooltipId : undefined}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onFocus={handleFocus}
       onBlur={handleBlur}
+      onKeyDown={handleKeyDown}
       {...rest}
     >
-      {children}
+      {trigger}
       {visible ? (
         <span
           role="tooltip"

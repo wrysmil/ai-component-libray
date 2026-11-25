@@ -405,7 +405,15 @@
           "type": "DataTableRow[]",
           "required": true,
           "default": null,
-          "description": "行数据（当前页数据）。",
+          "description": "全部行数据，组件内部按 `pageSize` 分页。",
+          "options": null
+        },
+        {
+          "name": "rowKey",
+          "type": "((row: DataTableRow, index: number) => string)",
+          "required": false,
+          "default": null,
+          "description": "行 key 生成器，默认使用 `row.id`（存在时）否则使用行下标。\n翻页或排序后 key 保持稳定，React 不会错误地复用行节点。",
           "options": null
         },
         {
@@ -425,11 +433,33 @@
           "options": null
         },
         {
-          "name": "onSortChange",
-          "type": "((key: string) => void)",
+          "name": "sortDirection",
+          "type": "SortDirection",
           "required": false,
           "default": null,
-          "description": "点击可排序表头时回调新的列 key。",
+          "description": "受控排序方向。",
+          "options": [
+            "ascending",
+            "descending"
+          ]
+        },
+        {
+          "name": "defaultSortDirection",
+          "type": "SortDirection",
+          "required": false,
+          "default": null,
+          "description": "默认排序方向（非受控时生效）。",
+          "options": [
+            "ascending",
+            "descending"
+          ]
+        },
+        {
+          "name": "onSortChange",
+          "type": "((key: string, direction: SortDirection) => void)",
+          "required": false,
+          "default": null,
+          "description": "点击可排序表头时回调新的列 key 与排序方向。",
           "options": null
         },
         {
@@ -800,6 +830,14 @@
           "required": false,
           "default": "true",
           "description": "按下 Esc 时是否关闭。",
+          "options": null
+        },
+        {
+          "name": "closeLabel",
+          "type": "string",
+          "required": false,
+          "default": "\"关闭\"",
+          "description": "关闭按钮的无障碍名称。",
           "options": null
         }
       ],
