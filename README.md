@@ -100,7 +100,13 @@ The catalogue, the REST API and the MCP server read the generated manifest, so t
 
 ## CI
 
-The pipeline is defined in `.github/workflows/ci.yml` and runs on every push and pull request:
+The pipeline definition is kept in [`.github/ci.yml`](.github/ci.yml). GitHub Actions only picks up workflows from `.github/workflows/`, so copy it there once:
+
+```bash
+mkdir -p .github/workflows && cp .github/ci.yml .github/workflows/ci.yml
+```
+
+It then runs on every push and pull request:
 
 ```yaml
 name: CI
