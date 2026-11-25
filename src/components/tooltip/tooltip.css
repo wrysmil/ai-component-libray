@@ -7,6 +7,8 @@
  */
 
 .aicl-tooltip {
+  --aicl-tooltip-outline-width: var(--aicl-focus-outline-width, 2px);
+  --aicl-tooltip-outline-offset: var(--aicl-focus-outline-offset, 2px);
   --aicl-tooltip-bg: var(--aicl-color-inverse, #0f172a);
   --aicl-tooltip-fg: var(--aicl-color-on-inverse, #ffffff);
   --aicl-tooltip-radius: var(--aicl-radius-sm, 6px);
@@ -23,8 +25,8 @@
 }
 
 .aicl-tooltip:focus-visible {
-  outline: 2px solid var(--aicl-color-focus, #2f6feb);
-  outline-offset: 2px;
+  outline: var(--aicl-tooltip-outline-width) solid var(--aicl-color-focus, #2f6feb);
+  outline-offset: var(--aicl-tooltip-outline-offset);
 }
 
 .aicl-tooltip__bubble {

@@ -7,6 +7,8 @@
  */
 
 .aicl-data-table {
+  --aicl-data-table-outline-width: var(--aicl-focus-outline-width, 2px);
+  --aicl-data-table-outline-offset: var(--aicl-focus-outline-offset, 2px);
   --aicl-data-table-bg: var(--aicl-color-surface, #ffffff);
   --aicl-data-table-fg: var(--aicl-color-text, #0f172a);
   --aicl-data-table-muted: var(--aicl-color-text-muted, #64748b);
@@ -71,8 +73,8 @@
 }
 
 .aicl-data-table__sort-button:focus-visible {
-  outline: 2px solid var(--aicl-color-focus, #2f6feb);
-  outline-offset: 2px;
+  outline: var(--aicl-data-table-outline-width) solid var(--aicl-color-focus, #2f6feb);
+  outline-offset: var(--aicl-data-table-outline-offset);
 }
 
 .aicl-data-table__sort-indicator {
@@ -134,8 +136,8 @@
 }
 
 .aicl-data-table__pager-button:focus-visible {
-  outline: 2px solid var(--aicl-color-focus, #2f6feb);
-  outline-offset: 2px;
+  outline: var(--aicl-data-table-outline-width) solid var(--aicl-color-focus, #2f6feb);
+  outline-offset: var(--aicl-data-table-outline-offset);
 }
 
 .aicl-data-table__pager-button:disabled {

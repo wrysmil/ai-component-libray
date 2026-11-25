@@ -22,6 +22,13 @@ Environment variables:
 | `HOST` | `127.0.0.1` | Bind address |
 | `AICP_MCP_TOKEN` | *(unset)* | Optional bearer token placeholder — see the security note below |
 
+A ready-made check of a running server (uses the official MCP client):
+
+```bash
+npm run smoke:mcp            # expects http://127.0.0.1:8787/mcp
+MCP_URL=http://host:port/mcp npm run smoke:mcp
+```
+
 Endpoints:
 
 | Endpoint | Purpose |

@@ -88,6 +88,7 @@ The catalogue, the REST API, the MCP server and the showcase site all read the g
 | `npm run dev:server` | Runs the REST API and the MCP server |
 | `npm run dev:site` | Runs the showcase site in dev mode |
 | `npm run bench:search` | Search benchmark, fails when P95 ≥ 300 ms |
+| `npm run smoke:mcp` | Calls a running MCP server with a standard client (search + get source) |
 | `npm run verify` | The full CI chain, locally |
 
 ## Documentation

@@ -7,6 +7,8 @@
  */
 
 .aicl-card {
+  --aicl-card-outline-width: var(--aicl-focus-outline-width, 2px);
+  --aicl-card-outline-offset: var(--aicl-focus-outline-offset, 2px);
   --aicl-card-bg: var(--aicl-color-surface, #ffffff);
   --aicl-card-fg: var(--aicl-color-text, #0f172a);
   --aicl-card-muted: var(--aicl-color-text-muted, #64748b);
@@ -34,8 +36,8 @@
 }
 
 .aicl-card:focus-visible {
-  outline: 2px solid var(--aicl-color-focus, #2f6feb);
-  outline-offset: 2px;
+  outline: var(--aicl-card-outline-width) solid var(--aicl-color-focus, #2f6feb);
+  outline-offset: var(--aicl-card-outline-offset);
 }
 
 .aicl-card__header {

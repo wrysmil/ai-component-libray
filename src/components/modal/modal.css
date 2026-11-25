@@ -7,6 +7,8 @@
  */
 
 .aicl-modal {
+  --aicl-modal-outline-width: var(--aicl-focus-outline-width, 2px);
+  --aicl-modal-outline-offset: var(--aicl-focus-outline-offset, 2px);
   --aicl-modal-overlay: var(--aicl-color-overlay, rgba(15, 23, 42, 0.5));
   --aicl-modal-bg: var(--aicl-color-surface, #ffffff);
   --aicl-modal-fg: var(--aicl-color-text, #0f172a);
@@ -51,8 +53,8 @@
 }
 
 .aicl-modal__dialog:focus-visible {
-  outline: 2px solid var(--aicl-color-focus, #2f6feb);
-  outline-offset: 2px;
+  outline: var(--aicl-modal-outline-width) solid var(--aicl-color-focus, #2f6feb);
+  outline-offset: var(--aicl-modal-outline-offset);
 }
 
 .aicl-modal__header {
@@ -92,8 +94,8 @@
 }
 
 .aicl-modal__close:focus-visible {
-  outline: 2px solid var(--aicl-color-focus, #2f6feb);
-  outline-offset: 2px;
+  outline: var(--aicl-modal-outline-width) solid var(--aicl-color-focus, #2f6feb);
+  outline-offset: var(--aicl-modal-outline-offset);
 }
 
 .aicl-modal__body {

@@ -31,6 +31,7 @@
     "dev:server": "tsx watch src/server/index.ts",
     "dev:site": "vite --config site/vite.config.ts",
     "bench:search": "tsx scripts/bench-search.ts",
+"smoke:mcp": "tsx scripts/mcp-smoke.ts",
     "verify": "npm run typecheck && npm test && npm run generate:manifest && git diff --exit-code src/manifest/manifest.json && npm run build"
   },
   "peerDependencies": {
