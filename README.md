@@ -97,6 +97,37 @@ The catalogue, the REST API, the MCP server and the showcase site all read the g
 - [`docs/api.md`](docs/api.md) — REST API contract
 - [`docs/site.md`](docs/site.md) — the showcase site
 
+## CI
+
+The pipeline is defined in `.github/workflows/ci.yml` and runs on every push and pull request:
+
+```yaml
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run generate:manifest && git diff --exit-code src/manifest/manifest.json
+      - run: npm run build
+      - run: npm run bench:search
+```
+
+> The same chain runs locally with `npm run verify`.
+
 ## License
 
 MIT — see [LICENSE](./LICENSE).
