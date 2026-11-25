@@ -4,6 +4,8 @@ Base URL: `http://127.0.0.1:8787` (see `npm run dev:server`).
 
 The API serves the **generated manifest** (`src/manifest/manifest.json`) — the same data source the MCP server and the showcase site use.
 
+> **Authentication:** optional. When the server runs with `AICP_MCP_TOKEN` set, every request (except `GET /api/health`) needs the header `Authorization: Bearer <token>`; a missing or wrong token is answered with `401` and `{"error":{"code":"UNAUTHORIZED"}}`. See [`ai-integration.md`](./ai-integration.md) §3.
+
 ## `GET /api/components`
 
 Search the catalogue.

@@ -233,6 +233,18 @@ describe('controlled inputs', () => {
     expect(warn).not.toHaveBeenCalled();
   });
 
+  it('warns when a control has no accessible name', () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+    render(<TextInput placeholder="姓名" />);
+    expect(warn).toHaveBeenCalledWith(expect.stringContaining('accessible name'));
+  });
+
+  it('does not warn when an aria-label is given', () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+    render(<TextInput aria-label="姓名" />);
+    expect(warn).not.toHaveBeenCalled();
+  });
+
   it('reports the new value of a TextInput', () => {
     const onChange = vi.fn();
     render(<TextInput label="姓名" value="" onChange={onChange} />);

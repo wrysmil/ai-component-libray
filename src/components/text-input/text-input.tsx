@@ -21,6 +21,7 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(function T
     id,
     'aria-describedby': ariaDescribedByProp,
     'aria-invalid': ariaInvalidProp,
+    'aria-label': ariaLabelProp,
     ...rest
   },
   ref,
@@ -42,6 +43,17 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(function T
       );
     }
   }, [isControlled, onChange]);
+
+  useEffect(() => {
+    // Without a label the control has no accessible name (a placeholder does
+    // not count as one).
+    if (!label && !ariaLabelProp) {
+      warnDev(
+        '<TextInput> has neither a `label` nor an `aria-label` — the input has no ' +
+          'accessible name.',
+      );
+    }
+  }, [label, ariaLabelProp]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const nextValue = event.target.value;
@@ -90,6 +102,7 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(function T
         disabled={disabled}
         aria-invalid={error ? true : ariaInvalidProp}
         aria-describedby={describedBy === '' ? undefined : describedBy}
+        aria-label={ariaLabelProp}
         {...rest}
       />
       {hint ? (

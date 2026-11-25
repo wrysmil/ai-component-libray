@@ -22,7 +22,7 @@ export const EmptyState = forwardRef<HTMLDivElement, EmptyStateProps>(
             {icon}
           </div>
         ) : null}
-        <p className="aicl-empty-state__title">{title}</p>
+        <h3 className="aicl-empty-state__title">{title}</h3>
         {description !== undefined ? (
           <p className="aicl-empty-state__description">{description}</p>
         ) : null}

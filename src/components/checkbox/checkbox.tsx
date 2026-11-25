@@ -17,6 +17,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
     className,
     style,
     id,
+    'aria-label': ariaLabelProp,
     ...rest
   },
   ref,
@@ -49,6 +50,15 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
       );
     }
   }, [isControlled, onChange]);
+
+  useEffect(() => {
+    if (!label && !ariaLabelProp) {
+      warnDev(
+        '<Checkbox> has neither a `label` nor an `aria-label` — the checkbox has no ' +
+          'accessible name.',
+      );
+    }
+  }, [label, ariaLabelProp]);
 
   // The `indeterminate` state is a DOM property: it has to be re-applied
   // whenever it changes and whenever the checked state changes (the browser
@@ -90,6 +100,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
         name={name}
         value={value}
         aria-checked={indeterminate ? 'mixed' : undefined}
+        aria-label={ariaLabelProp}
         {...rest}
       />
       {label ? (

@@ -17,6 +17,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select
     className,
     style,
     id,
+    'aria-label': ariaLabelProp,
     ...rest
   },
   ref,
@@ -36,6 +37,15 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select
       );
     }
   }, [isControlled, onChange]);
+
+  useEffect(() => {
+    if (!label && !ariaLabelProp) {
+      warnDev(
+        '<Select> has neither a `label` nor an `aria-label` — the select has no ' +
+          'accessible name.',
+      );
+    }
+  }, [label, ariaLabelProp]);
 
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const nextValue = event.target.value;
@@ -69,6 +79,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select
           value={currentValue}
           onChange={handleChange}
           disabled={disabled}
+          aria-label={ariaLabelProp}
           {...rest}
         >
           {placeholder ? (
