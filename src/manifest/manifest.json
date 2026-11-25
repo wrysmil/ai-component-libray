@@ -1,0 +1,1449 @@
+{
+  "version": "0.1.0",
+  "components": [
+    {
+      "id": "button",
+      "name": "Button",
+      "title": "按钮",
+      "category": "action",
+      "tags": [
+        "button",
+        "action",
+        "cta",
+        "submit",
+        "loading"
+      ],
+      "keywords": [
+        "button",
+        "按钮",
+        "提交",
+        "操作",
+        "primary",
+        "secondary",
+        "cta"
+      ],
+      "description": "触发动作的基础按钮，支持多种视觉变体、尺寸、加载态与图标。",
+      "summary": "可点击动作按钮，含变体、尺寸与加载态。",
+      "whenToUse": [
+        "需要触发一次操作或提交表单",
+        "需要主次操作区分（primary / secondary）"
+      ],
+      "whenNotToUse": [
+        "仅用于导航到其他页面（请用链接或导航组件）",
+        "需要开关状态（请用 Checkbox 或 Switch）"
+      ],
+      "props": [
+        {
+          "name": "variant",
+          "type": "\"primary\" | \"secondary\" | \"ghost\" | \"danger\"",
+          "required": false,
+          "default": "\"primary\"",
+          "description": "Visual style of the button.",
+          "options": [
+            "primary",
+            "secondary",
+            "ghost",
+            "danger"
+          ]
+        },
+        {
+          "name": "size",
+          "type": "\"small\" | \"medium\" | \"large\"",
+          "required": false,
+          "default": "\"medium\"",
+          "description": "Size of the button.",
+          "options": [
+            "small",
+            "medium",
+            "large"
+          ]
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Show a busy indicator and block interaction.",
+          "options": null
+        },
+        {
+          "name": "leftIcon",
+          "type": "React.ReactNode",
+          "required": false,
+          "default": null,
+          "description": "Element rendered before the label.",
+          "options": null
+        },
+        {
+          "name": "rightIcon",
+          "type": "React.ReactNode",
+          "required": false,
+          "default": null,
+          "description": "Element rendered after the label.",
+          "options": null
+        }
+      ],
+      "dependencies": [],
+      "peerDependencies": [
+        "react"
+      ],
+      "framework": "react",
+      "license": "MIT",
+      "demoPath": "/components/button",
+      "files": [
+        {
+          "path": "src/components/button/README.md",
+          "role": "readme"
+        },
+        {
+          "path": "src/components/button/button.css",
+          "role": "style"
+        },
+        {
+          "path": "src/components/button/button.tsx",
+          "role": "implementation"
+        },
+        {
+          "path": "src/components/button/example.tsx",
+          "role": "example"
+        },
+        {
+          "path": "src/components/button/types.ts",
+          "role": "types"
+        }
+      ],
+      "usage": "import { Button } from 'ai-component-libray';\nimport 'ai-component-libray/styles/button.css';",
+      "install": "npm install ai-component-libray",
+      "examplePath": "src/components/button/example.tsx"
+    },
+    {
+      "id": "card",
+      "name": "Card",
+      "title": "卡片",
+      "category": "data-display",
+      "tags": [
+        "card",
+        "container",
+        "panel",
+        "content",
+        "layout"
+      ],
+      "keywords": [
+        "card",
+        "卡片",
+        "面板",
+        "panel",
+        "容器",
+        "container"
+      ],
+      "description": "通用内容容器，提供标题、描述、底部操作区与多种视觉变体。",
+      "summary": "通用内容卡片容器。",
+      "whenToUse": [
+        "需要把一组信息组织成带标题的区块",
+        "需要一个带操作区的信息卡片"
+      ],
+      "whenNotToUse": [
+        "需要展示成行的结构化数据（请用 DataTable）",
+        "需要展示单个指标与趋势（请用专门的指标卡）"
+      ],
+      "props": [
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "卡片标题。",
+          "options": null
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "标题下方的描述文字。",
+          "options": null
+        },
+        {
+          "name": "footer",
+          "type": "React.ReactNode",
+          "required": false,
+          "default": null,
+          "description": "底部操作区内容。",
+          "options": null
+        },
+        {
+          "name": "variant",
+          "type": "\"default\" | \"outlined\" | \"elevated\"",
+          "required": false,
+          "default": "\"default\"",
+          "description": "卡片的视觉变体。",
+          "options": [
+            "default",
+            "outlined",
+            "elevated"
+          ]
+        },
+        {
+          "name": "padding",
+          "type": "\"none\" | \"sm\" | \"md\" | \"lg\"",
+          "required": false,
+          "default": "\"md\"",
+          "description": "卡片内容的内边距。",
+          "options": [
+            "none",
+            "sm",
+            "md",
+            "lg"
+          ]
+        }
+      ],
+      "dependencies": [],
+      "peerDependencies": [
+        "react"
+      ],
+      "framework": "react",
+      "license": "MIT",
+      "demoPath": "/components/card",
+      "files": [
+        {
+          "path": "src/components/card/README.md",
+          "role": "readme"
+        },
+        {
+          "path": "src/components/card/card.css",
+          "role": "style"
+        },
+        {
+          "path": "src/components/card/card.tsx",
+          "role": "implementation"
+        },
+        {
+          "path": "src/components/card/example.tsx",
+          "role": "example"
+        },
+        {
+          "path": "src/components/card/types.ts",
+          "role": "types"
+        }
+      ],
+      "usage": "import { Card } from 'ai-component-libray';\nimport 'ai-component-libray/styles/card.css';",
+      "install": "npm install ai-component-libray",
+      "examplePath": "src/components/card/example.tsx"
+    },
+    {
+      "id": "checkbox",
+      "name": "Checkbox",
+      "title": "复选框",
+      "category": "input",
+      "tags": [
+        "checkbox",
+        "form",
+        "toggle",
+        "boolean",
+        "multi-select"
+      ],
+      "keywords": [
+        "checkbox",
+        "勾选",
+        "复选框",
+        "多选"
+      ],
+      "description": "支持受控/非受控与半选状态的复选框。",
+      "summary": "受控/非受控复选框，含半选态。",
+      "whenToUse": [
+        "表单中需要勾选一个或多个选项",
+        "需要表达“部分选中”的父级列表项"
+      ],
+      "whenNotToUse": [
+        "互斥单选（请用 radio）",
+        "需要立即生效的开关（请用带 onChange 的 Switch 语义组件）"
+      ],
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "复选框文本标签，点击标签可切换勾选状态。",
+          "options": null
+        },
+        {
+          "name": "checked",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "受控勾选状态，传入后组件为受控模式。",
+          "options": null
+        },
+        {
+          "name": "defaultChecked",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "初始勾选状态（非受控）。",
+          "options": null
+        },
+        {
+          "name": "onChange",
+          "type": "((checked: boolean) => void)",
+          "required": false,
+          "default": null,
+          "description": "勾选状态变化回调，参数是新的勾选状态。",
+          "options": null
+        },
+        {
+          "name": "indeterminate",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "半选状态，通过 DOM property 设置。",
+          "options": null
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "是否禁用复选框。",
+          "options": null
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "表单字段名。",
+          "options": null
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "default": "\"on\"",
+          "description": "表单提交时携带的值。",
+          "options": null
+        }
+      ],
+      "dependencies": [],
+      "peerDependencies": [
+        "react"
+      ],
+      "framework": "react",
+      "license": "MIT",
+      "demoPath": "/components/checkbox",
+      "files": [
+        {
+          "path": "src/components/checkbox/README.md",
+          "role": "readme"
+        },
+        {
+          "path": "src/components/checkbox/checkbox.css",
+          "role": "style"
+        },
+        {
+          "path": "src/components/checkbox/checkbox.tsx",
+          "role": "implementation"
+        },
+        {
+          "path": "src/components/checkbox/example.tsx",
+          "role": "example"
+        },
+        {
+          "path": "src/components/checkbox/types.ts",
+          "role": "types"
+        }
+      ],
+      "usage": "import { Checkbox } from 'ai-component-libray';\nimport 'ai-component-libray/styles/checkbox.css';",
+      "install": "npm install ai-component-libray",
+      "examplePath": "src/components/checkbox/example.tsx"
+    },
+    {
+      "id": "data-table",
+      "name": "DataTable",
+      "title": "数据表格",
+      "category": "data-display",
+      "tags": [
+        "data-table",
+        "table",
+        "grid",
+        "sort",
+        "pagination",
+        "list"
+      ],
+      "keywords": [
+        "data table",
+        "datatable",
+        "table",
+        "表格",
+        "数据表格",
+        "数据表",
+        "grid",
+        "排序",
+        "sort"
+      ],
+      "description": "支持排序与分页的数据表格，用于展示结构化行数据。",
+      "summary": "可排序、可分页的数据表格。",
+      "whenToUse": [
+        "需要展示结构化行数据并支持排序或分页",
+        "列定义会随业务变化的场景"
+      ],
+      "whenNotToUse": [
+        "仅展示少量键值对（用 Card 即可）",
+        "需要复杂单元格编辑（应使用专业表格方案）"
+      ],
+      "props": [
+        {
+          "name": "columns",
+          "type": "DataTableColumn<DataTableRow>[]",
+          "required": true,
+          "default": null,
+          "description": "列定义。",
+          "options": null
+        },
+        {
+          "name": "rows",
+          "type": "DataTableRow[]",
+          "required": true,
+          "default": null,
+          "description": "行数据（当前页数据）。",
+          "options": null
+        },
+        {
+          "name": "sortBy",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "受控排序列 key。",
+          "options": null
+        },
+        {
+          "name": "defaultSortBy",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "默认排序列 key（非受控时生效）。",
+          "options": null
+        },
+        {
+          "name": "onSortChange",
+          "type": "((key: string) => void)",
+          "required": false,
+          "default": null,
+          "description": "点击可排序表头时回调新的列 key。",
+          "options": null
+        },
+        {
+          "name": "pageSize",
+          "type": "number",
+          "required": false,
+          "default": "10",
+          "description": "每页行数。",
+          "options": null
+        },
+        {
+          "name": "emptyText",
+          "type": "string",
+          "required": false,
+          "default": "\"暂无数据\"",
+          "description": "空数据时的占位文案。",
+          "options": null
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "加载中状态。",
+          "options": null
+        }
+      ],
+      "dependencies": [],
+      "peerDependencies": [
+        "react"
+      ],
+      "framework": "react",
+      "license": "MIT",
+      "demoPath": "/components/data-table",
+      "files": [
+        {
+          "path": "src/components/data-table/README.md",
+          "role": "readme"
+        },
+        {
+          "path": "src/components/data-table/data-table.css",
+          "role": "style"
+        },
+        {
+          "path": "src/components/data-table/data-table.tsx",
+          "role": "implementation"
+        },
+        {
+          "path": "src/components/data-table/example.tsx",
+          "role": "example"
+        },
+        {
+          "path": "src/components/data-table/types.ts",
+          "role": "types"
+        }
+      ],
+      "usage": "import { DataTable } from 'ai-component-libray';\nimport 'ai-component-libray/styles/data-table.css';",
+      "install": "npm install ai-component-libray",
+      "examplePath": "src/components/data-table/example.tsx"
+    },
+    {
+      "id": "empty-state",
+      "name": "EmptyState",
+      "title": "空状态",
+      "category": "feedback",
+      "tags": [
+        "empty-state",
+        "placeholder",
+        "feedback",
+        "status",
+        "list"
+      ],
+      "keywords": [
+        "empty state",
+        "empty",
+        "空状态",
+        "空态",
+        "占位",
+        "placeholder",
+        "no data"
+      ],
+      "description": "列表或区域无数据时的占位展示，含图标、说明与操作入口。",
+      "summary": "无数据时的占位空状态。",
+      "whenToUse": [
+        "列表、搜索结果或图表没有任何数据时",
+        "需要给用户下一步动作的提示（如\"新建\"）"
+      ],
+      "whenNotToUse": [
+        "数据加载中（请用加载态或骨架屏）",
+        "数据加载失败（请用错误态组件）"
+      ],
+      "props": [
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "description": "空状态标题。",
+          "options": null
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "补充说明。",
+          "options": null
+        },
+        {
+          "name": "icon",
+          "type": "React.ReactNode",
+          "required": false,
+          "default": null,
+          "description": "标题上方的图标。",
+          "options": null
+        },
+        {
+          "name": "action",
+          "type": "React.ReactNode",
+          "required": false,
+          "default": null,
+          "description": "底部操作区（如一个 Button）。",
+          "options": null
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"md\"",
+          "required": false,
+          "default": "\"md\"",
+          "description": "尺寸。",
+          "options": [
+            "sm",
+            "md"
+          ]
+        }
+      ],
+      "dependencies": [],
+      "peerDependencies": [
+        "react"
+      ],
+      "framework": "react",
+      "license": "MIT",
+      "demoPath": "/components/empty-state",
+      "files": [
+        {
+          "path": "src/components/empty-state/README.md",
+          "role": "readme"
+        },
+        {
+          "path": "src/components/empty-state/empty-state.css",
+          "role": "style"
+        },
+        {
+          "path": "src/components/empty-state/empty-state.tsx",
+          "role": "implementation"
+        },
+        {
+          "path": "src/components/empty-state/example.tsx",
+          "role": "example"
+        },
+        {
+          "path": "src/components/empty-state/types.ts",
+          "role": "types"
+        }
+      ],
+      "usage": "import { EmptyState } from 'ai-component-libray';\nimport 'ai-component-libray/styles/empty-state.css';",
+      "install": "npm install ai-component-libray",
+      "examplePath": "src/components/empty-state/example.tsx"
+    },
+    {
+      "id": "icon-button",
+      "name": "IconButton",
+      "title": "图标按钮",
+      "category": "action",
+      "tags": [
+        "icon-button",
+        "icon",
+        "toolbar",
+        "action"
+      ],
+      "keywords": [
+        "icon button",
+        "图标按钮",
+        "图标",
+        "工具栏",
+        "toolbar"
+      ],
+      "description": "只有一个图标的紧凑操作按钮，用于工具栏等高密度区域。",
+      "summary": "仅图标的紧凑操作按钮。",
+      "whenToUse": [
+        "工具栏等高密度区域需要紧凑操作入口",
+        "操作图标本身含义明确、需要无障碍名称时"
+      ],
+      "whenNotToUse": [
+        "图标含义不明确、需要文字说明时",
+        "普通表单提交场景（请用 Button）"
+      ],
+      "props": [
+        {
+          "name": "icon",
+          "type": "React.ReactNode",
+          "required": true,
+          "default": null,
+          "description": "The icon element rendered inside the button.",
+          "options": null
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "description": "Accessible name of the button, rendered as `aria-label`.",
+          "options": null
+        },
+        {
+          "name": "size",
+          "type": "\"small\" | \"medium\" | \"large\"",
+          "required": false,
+          "default": "\"medium\"",
+          "description": "Size of the icon button.",
+          "options": [
+            "small",
+            "medium",
+            "large"
+          ]
+        },
+        {
+          "name": "variant",
+          "type": "\"ghost\" | \"solid\" | \"outline\"",
+          "required": false,
+          "default": "\"ghost\"",
+          "description": "Visual style of the icon button.",
+          "options": [
+            "ghost",
+            "solid",
+            "outline"
+          ]
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the icon button is disabled.",
+          "options": null
+        }
+      ],
+      "dependencies": [],
+      "peerDependencies": [
+        "react"
+      ],
+      "framework": "react",
+      "license": "MIT",
+      "demoPath": "/components/icon-button",
+      "files": [
+        {
+          "path": "src/components/icon-button/README.md",
+          "role": "readme"
+        },
+        {
+          "path": "src/components/icon-button/example.tsx",
+          "role": "example"
+        },
+        {
+          "path": "src/components/icon-button/icon-button.css",
+          "role": "style"
+        },
+        {
+          "path": "src/components/icon-button/icon-button.tsx",
+          "role": "implementation"
+        },
+        {
+          "path": "src/components/icon-button/types.ts",
+          "role": "types"
+        }
+      ],
+      "usage": "import { IconButton } from 'ai-component-libray';\nimport 'ai-component-libray/styles/icon-button.css';",
+      "install": "npm install ai-component-libray",
+      "examplePath": "src/components/icon-button/example.tsx"
+    },
+    {
+      "id": "modal",
+      "name": "Modal",
+      "title": "模态弹窗",
+      "category": "overlay",
+      "tags": [
+        "modal",
+        "dialog",
+        "overlay",
+        "popup",
+        "feedback"
+      ],
+      "keywords": [
+        "modal",
+        "弹窗",
+        "对话框",
+        "dialog",
+        "popup",
+        "遮罩",
+        "overlay"
+      ],
+      "description": "模态弹窗，支持遮罩点击与 Esc 关闭、多种尺寸与底部操作区。",
+      "summary": "模态弹窗，含遮罩与 Esc 关闭。",
+      "whenToUse": [
+        "需要打断用户流程进行确认或补充信息",
+        "需要在当前页面展示独立的任务内容"
+      ],
+      "whenNotToUse": [
+        "需要持续可见的辅助信息（请用 Tooltip）",
+        "内容很长应整页展示（请用独立页面）"
+      ],
+      "props": [
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": true,
+          "default": null,
+          "description": "是否显示弹窗。",
+          "options": null
+        },
+        {
+          "name": "onClose",
+          "type": "() => void",
+          "required": true,
+          "default": null,
+          "description": "关闭回调，点击遮罩、按下 Esc 或点击关闭按钮时触发。",
+          "options": null
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "弹窗标题。",
+          "options": null
+        },
+        {
+          "name": "footer",
+          "type": "React.ReactNode",
+          "required": false,
+          "default": null,
+          "description": "底部操作区。",
+          "options": null
+        },
+        {
+          "name": "size",
+          "type": "\"small\" | \"medium\" | \"large\"",
+          "required": false,
+          "default": "\"medium\"",
+          "description": "弹窗尺寸。",
+          "options": [
+            "small",
+            "medium",
+            "large"
+          ]
+        },
+        {
+          "name": "closeOnOverlayClick",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "点击遮罩时是否关闭。",
+          "options": null
+        },
+        {
+          "name": "closeOnEsc",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "按下 Esc 时是否关闭。",
+          "options": null
+        }
+      ],
+      "dependencies": [],
+      "peerDependencies": [
+        "react"
+      ],
+      "framework": "react",
+      "license": "MIT",
+      "demoPath": "/components/modal",
+      "files": [
+        {
+          "path": "src/components/modal/README.md",
+          "role": "readme"
+        },
+        {
+          "path": "src/components/modal/example.tsx",
+          "role": "example"
+        },
+        {
+          "path": "src/components/modal/modal.css",
+          "role": "style"
+        },
+        {
+          "path": "src/components/modal/modal.tsx",
+          "role": "implementation"
+        },
+        {
+          "path": "src/components/modal/types.ts",
+          "role": "types"
+        }
+      ],
+      "usage": "import { Modal } from 'ai-component-libray';\nimport 'ai-component-libray/styles/modal.css';",
+      "install": "npm install ai-component-libray",
+      "examplePath": "src/components/modal/example.tsx"
+    },
+    {
+      "id": "progress",
+      "name": "Progress",
+      "title": "进度条",
+      "category": "feedback",
+      "tags": [
+        "progress",
+        "feedback",
+        "loading",
+        "bar",
+        "status"
+      ],
+      "keywords": [
+        "progress",
+        "进度条",
+        "进度",
+        "loading bar",
+        "进度指示"
+      ],
+      "description": "展示任务完成进度的线性或环形进度条。",
+      "summary": "线性/环形进度条，含百分比文本。",
+      "whenToUse": [
+        "需要反馈长任务的完成进度",
+        "需要展示确定的完成比例（如上传、导入）"
+      ],
+      "whenNotToUse": [
+        "状态不确定（请用 Button 的 loading 或骨架屏）",
+        "需要展示业务指标数值（请用指标卡组件）"
+      ],
+      "props": [
+        {
+          "name": "value",
+          "type": "number",
+          "required": true,
+          "default": null,
+          "description": "当前进度值。",
+          "options": null
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "required": false,
+          "default": "100",
+          "description": "最大值。",
+          "options": null
+        },
+        {
+          "name": "variant",
+          "type": "\"linear\" | \"circular\"",
+          "required": false,
+          "default": "\"linear\"",
+          "description": "视觉变体。",
+          "options": [
+            "linear",
+            "circular"
+          ]
+        },
+        {
+          "name": "showLabel",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "是否显示百分比文本。",
+          "options": null
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "自定义文本，传入时显示该文本而不是百分比。",
+          "options": null
+        }
+      ],
+      "dependencies": [],
+      "peerDependencies": [
+        "react"
+      ],
+      "framework": "react",
+      "license": "MIT",
+      "demoPath": "/components/progress",
+      "files": [
+        {
+          "path": "src/components/progress/README.md",
+          "role": "readme"
+        },
+        {
+          "path": "src/components/progress/example.tsx",
+          "role": "example"
+        },
+        {
+          "path": "src/components/progress/progress.css",
+          "role": "style"
+        },
+        {
+          "path": "src/components/progress/progress.tsx",
+          "role": "implementation"
+        },
+        {
+          "path": "src/components/progress/types.ts",
+          "role": "types"
+        }
+      ],
+      "usage": "import { Progress } from 'ai-component-libray';\nimport 'ai-component-libray/styles/progress.css';",
+      "install": "npm install ai-component-libray",
+      "examplePath": "src/components/progress/example.tsx"
+    },
+    {
+      "id": "select",
+      "name": "Select",
+      "title": "下拉选择",
+      "category": "input",
+      "tags": [
+        "select",
+        "dropdown",
+        "form",
+        "option",
+        "picker"
+      ],
+      "keywords": [
+        "select",
+        "下拉",
+        "下拉框",
+        "选择器",
+        "dropdown",
+        "picker"
+      ],
+      "description": "基于原生 select 的下拉选择器，支持受控/非受控与占位项。",
+      "summary": "原生 select 封装的下拉选择器。",
+      "whenToUse": [
+        "需要从一组固定选项中单选",
+        "选项数量不多且希望获得原生无障碍行为"
+      ],
+      "whenNotToUse": [
+        "需要多选（请用带 checkbox 的自定义组件）",
+        "选项需要远程搜索（请用带搜索的下拉）"
+      ],
+      "props": [
+        {
+          "name": "options",
+          "type": "SelectOption[]",
+          "required": true,
+          "default": null,
+          "description": "选项列表。",
+          "options": null
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "受控值，传入后组件为受控模式。",
+          "options": null
+        },
+        {
+          "name": "defaultValue",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "初始值（非受控）。",
+          "options": null
+        },
+        {
+          "name": "onChange",
+          "type": "((value: string) => void)",
+          "required": false,
+          "default": null,
+          "description": "新值回调，参数是选中项的值。",
+          "options": null
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "表单标签，与下拉框通过 id 关联。",
+          "options": null
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "空值时显示的占位选项，value 为空字符串。",
+          "options": null
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "是否禁用下拉框。",
+          "options": null
+        },
+        {
+          "name": "size",
+          "type": "\"small\" | \"medium\" | \"large\"",
+          "required": false,
+          "default": "\"medium\"",
+          "description": "下拉框尺寸。",
+          "options": [
+            "small",
+            "medium",
+            "large"
+          ]
+        }
+      ],
+      "dependencies": [],
+      "peerDependencies": [
+        "react"
+      ],
+      "framework": "react",
+      "license": "MIT",
+      "demoPath": "/components/select",
+      "files": [
+        {
+          "path": "src/components/select/README.md",
+          "role": "readme"
+        },
+        {
+          "path": "src/components/select/example.tsx",
+          "role": "example"
+        },
+        {
+          "path": "src/components/select/select.css",
+          "role": "style"
+        },
+        {
+          "path": "src/components/select/select.tsx",
+          "role": "implementation"
+        },
+        {
+          "path": "src/components/select/types.ts",
+          "role": "types"
+        }
+      ],
+      "usage": "import { Select } from 'ai-component-libray';\nimport 'ai-component-libray/styles/select.css';",
+      "install": "npm install ai-component-libray",
+      "examplePath": "src/components/select/example.tsx"
+    },
+    {
+      "id": "tabs",
+      "name": "Tabs",
+      "title": "标签页",
+      "category": "navigation",
+      "tags": [
+        "tabs",
+        "tab",
+        "navigation",
+        "segmented",
+        "switcher"
+      ],
+      "keywords": [
+        "tabs",
+        "tab",
+        "标签页",
+        "选项卡",
+        "分段控件",
+        "segmented"
+      ],
+      "description": "受控/非受控的标签页导航，支持线型与药丸型两种视觉变体。",
+      "summary": "标签页导航组件。",
+      "whenToUse": [
+        "同一区域需要在若干并列视图间切换",
+        "想用分段控件替代多个按钮"
+      ],
+      "whenNotToUse": [
+        "内容是路由地址（请用导航链接）",
+        "只有两个选项且互斥（请用 Select 或 radio）"
+      ],
+      "props": [
+        {
+          "name": "tabs",
+          "type": "TabItem[]",
+          "required": true,
+          "default": null,
+          "description": "标签页定义列表。",
+          "options": null
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "受控选中项 id，提供后组件进入受控模式。",
+          "options": null
+        },
+        {
+          "name": "defaultValue",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "默认选中项 id，未提供时选中第一项。",
+          "options": null
+        },
+        {
+          "name": "onChange",
+          "type": "((id: string) => void)",
+          "required": false,
+          "default": null,
+          "description": "切换选中标签时的回调。",
+          "options": null
+        },
+        {
+          "name": "variant",
+          "type": "\"line\" | \"pill\"",
+          "required": false,
+          "default": "\"line\"",
+          "description": "视觉变体。",
+          "options": [
+            "line",
+            "pill"
+          ]
+        }
+      ],
+      "dependencies": [],
+      "peerDependencies": [
+        "react"
+      ],
+      "framework": "react",
+      "license": "MIT",
+      "demoPath": "/components/tabs",
+      "files": [
+        {
+          "path": "src/components/tabs/README.md",
+          "role": "readme"
+        },
+        {
+          "path": "src/components/tabs/example.tsx",
+          "role": "example"
+        },
+        {
+          "path": "src/components/tabs/tabs.css",
+          "role": "style"
+        },
+        {
+          "path": "src/components/tabs/tabs.tsx",
+          "role": "implementation"
+        },
+        {
+          "path": "src/components/tabs/types.ts",
+          "role": "types"
+        }
+      ],
+      "usage": "import { Tabs } from 'ai-component-libray';\nimport 'ai-component-libray/styles/tabs.css';",
+      "install": "npm install ai-component-libray",
+      "examplePath": "src/components/tabs/example.tsx"
+    },
+    {
+      "id": "text-input",
+      "name": "TextInput",
+      "title": "输入框",
+      "category": "input",
+      "tags": [
+        "text-input",
+        "input",
+        "form",
+        "field",
+        "validation"
+      ],
+      "keywords": [
+        "text input",
+        "输入框",
+        "文本框",
+        "输入",
+        "表单",
+        "form",
+        "field"
+      ],
+      "description": "带标签、辅助说明与错误态的受控文本输入框。",
+      "summary": "带标签与校验态的文本输入框。",
+      "whenToUse": [
+        "需要收集单行文本（姓名、搜索词、邮箱等）",
+        "需要展示字段级校验错误信息"
+      ],
+      "whenNotToUse": [
+        "需要多行文本（请用原生 textarea）",
+        "需要从固定选项中选择（请用 Select）"
+      ],
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "表单标签，与输入框通过 id 关联。",
+          "options": null
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "受控值，传入后组件为受控模式。",
+          "options": null
+        },
+        {
+          "name": "defaultValue",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "初始值（非受控）。",
+          "options": null
+        },
+        {
+          "name": "onChange",
+          "type": "((value: string) => void)",
+          "required": false,
+          "default": null,
+          "description": "值变化回调，参数是新字符串。",
+          "options": null
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "占位提示文本。",
+          "options": null
+        },
+        {
+          "name": "hint",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "输入框下方的辅助说明。",
+          "options": null
+        },
+        {
+          "name": "error",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "错误信息，传入后进入错误态。",
+          "options": null
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "是否为必填项。",
+          "options": null
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "是否禁用输入框。",
+          "options": null
+        },
+        {
+          "name": "type",
+          "type": "\"text\" | \"email\" | \"password\" | \"search\"",
+          "required": false,
+          "default": "\"text\"",
+          "description": "输入框类型。",
+          "options": [
+            "text",
+            "email",
+            "password",
+            "search"
+          ]
+        }
+      ],
+      "dependencies": [],
+      "peerDependencies": [
+        "react"
+      ],
+      "framework": "react",
+      "license": "MIT",
+      "demoPath": "/components/text-input",
+      "files": [
+        {
+          "path": "src/components/text-input/README.md",
+          "role": "readme"
+        },
+        {
+          "path": "src/components/text-input/example.tsx",
+          "role": "example"
+        },
+        {
+          "path": "src/components/text-input/text-input.css",
+          "role": "style"
+        },
+        {
+          "path": "src/components/text-input/text-input.tsx",
+          "role": "implementation"
+        },
+        {
+          "path": "src/components/text-input/types.ts",
+          "role": "types"
+        }
+      ],
+      "usage": "import { TextInput } from 'ai-component-libray';\nimport 'ai-component-libray/styles/text-input.css';",
+      "install": "npm install ai-component-libray",
+      "examplePath": "src/components/text-input/example.tsx"
+    },
+    {
+      "id": "tooltip",
+      "name": "Tooltip",
+      "title": "文字提示",
+      "category": "overlay",
+      "tags": [
+        "tooltip",
+        "overlay",
+        "hint",
+        "popover",
+        "help"
+      ],
+      "keywords": [
+        "tooltip",
+        "提示",
+        "文字提示",
+        "气泡",
+        "popover",
+        "hint"
+      ],
+      "description": "悬停或聚焦时显示的文字提示，支持方位与延迟。",
+      "summary": "悬停/聚焦触发的文字提示气泡。",
+      "whenToUse": [
+        "为图标或不熟悉的控件补充说明",
+        "需要解释某个字段的含义而不占用布局空间"
+      ],
+      "whenNotToUse": [
+        "承载重要信息或必须被阅读的内容（请用 Modal 或 Popover 面板）",
+        "移动端主要交互场景（悬停不可用）"
+      ],
+      "props": [
+        {
+          "name": "content",
+          "type": "React.ReactNode",
+          "required": true,
+          "default": null,
+          "description": "提示内容，显示在气泡中。",
+          "options": null
+        },
+        {
+          "name": "placement",
+          "type": "\"top\" | \"bottom\" | \"left\" | \"right\"",
+          "required": false,
+          "default": "\"top\"",
+          "description": "气泡相对触发元素显示的方位。",
+          "options": [
+            "top",
+            "bottom",
+            "left",
+            "right"
+          ]
+        },
+        {
+          "name": "delay",
+          "type": "number",
+          "required": false,
+          "default": "200",
+          "description": "显示延迟（毫秒）。",
+          "options": null
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "是否禁用提示，禁用时气泡永远不会出现。",
+          "options": null
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": true,
+          "default": null,
+          "description": "触发元素，鼠标悬停或聚焦时显示提示。",
+          "options": null
+        }
+      ],
+      "dependencies": [],
+      "peerDependencies": [
+        "react"
+      ],
+      "framework": "react",
+      "license": "MIT",
+      "demoPath": "/components/tooltip",
+      "files": [
+        {
+          "path": "src/components/tooltip/README.md",
+          "role": "readme"
+        },
+        {
+          "path": "src/components/tooltip/example.tsx",
+          "role": "example"
+        },
+        {
+          "path": "src/components/tooltip/tooltip.css",
+          "role": "style"
+        },
+        {
+          "path": "src/components/tooltip/tooltip.tsx",
+          "role": "implementation"
+        },
+        {
+          "path": "src/components/tooltip/types.ts",
+          "role": "types"
+        }
+      ],
+      "usage": "import { Tooltip } from 'ai-component-libray';\nimport 'ai-component-libray/styles/tooltip.css';",
+      "install": "npm install ai-component-libray",
+      "examplePath": "src/components/tooltip/example.tsx"
+    }
+  ]
+}

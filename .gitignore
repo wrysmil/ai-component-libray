@@ -1,0 +1,8 @@
+node_modules/
+dist/
+site/dist/
+coverage/
+.agentflow/
+*.log
+.DS_Store
+.vite/

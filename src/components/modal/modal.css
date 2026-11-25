@@ -1,0 +1,145 @@
+/*
+ * Modal component styles.
+ *
+ * Every value is expressed through a design token with a literal fallback so
+ * that copying this single file into another project works without any extra
+ * setup. Override the tokens globally to theme the component.
+ */
+
+.aicl-modal {
+  --aicl-modal-overlay: var(--aicl-color-overlay, rgba(15, 23, 42, 0.5));
+  --aicl-modal-bg: var(--aicl-color-surface, #ffffff);
+  --aicl-modal-fg: var(--aicl-color-text, #0f172a);
+  --aicl-modal-muted: var(--aicl-color-text-muted, #64748b);
+  --aicl-modal-border: var(--aicl-color-border, #cbd5e1);
+  --aicl-modal-border-width: var(--aicl-border-width, 1px);
+  --aicl-modal-radius: var(--aicl-radius-lg, 12px);
+  --aicl-modal-padding: var(--aicl-space-5, 24px);
+  --aicl-modal-gap: var(--aicl-space-4, 16px);
+  --aicl-modal-width: var(--aicl-size-md, 560px);
+  --aicl-modal-shadow: var(--aicl-shadow-lg, 0 16px 40px rgba(15, 23, 42, 0.24));
+  --aicl-modal-font-size: var(--aicl-font-size-sm, 14px);
+
+  position: fixed;
+  inset: 0;
+  z-index: var(--aicl-z-modal, 1000);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: var(--aicl-space-4, 16px);
+  background: var(--aicl-modal-overlay);
+}
+
+.aicl-modal__dialog {
+  display: flex;
+  flex-direction: column;
+  gap: var(--aicl-modal-gap);
+  box-sizing: border-box;
+  width: 100%;
+  max-width: var(--aicl-modal-width);
+  max-height: calc(100vh - var(--aicl-space-8, 32px));
+  overflow: auto;
+  padding: var(--aicl-modal-padding);
+  border: var(--aicl-modal-border-width) solid var(--aicl-modal-border);
+  border-radius: var(--aicl-modal-radius);
+  background: var(--aicl-modal-bg);
+  color: var(--aicl-modal-fg);
+  font-family: inherit;
+  font-size: var(--aicl-modal-font-size);
+  box-shadow: var(--aicl-modal-shadow);
+}
+
+.aicl-modal__dialog:focus-visible {
+  outline: 2px solid var(--aicl-color-focus, #2f6feb);
+  outline-offset: 2px;
+}
+
+.aicl-modal__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--aicl-space-3, 12px);
+}
+
+.aicl-modal__title {
+  margin: 0;
+  font-size: var(--aicl-font-size-lg, 18px);
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--aicl-modal-fg);
+}
+
+.aicl-modal__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--aicl-space-6, 24px);
+  height: var(--aicl-space-6, 24px);
+  padding: 0;
+  border: 0;
+  border-radius: var(--aicl-radius-sm, 6px);
+  background: var(--aicl-color-transparent, transparent);
+  color: var(--aicl-modal-muted);
+  font-size: var(--aicl-font-size-lg, 18px);
+  line-height: 1;
+  cursor: pointer;
+}
+
+.aicl-modal__close:hover {
+  background: var(--aicl-color-surface-hover, #f1f5f9);
+  color: var(--aicl-modal-fg);
+}
+
+.aicl-modal__close:focus-visible {
+  outline: 2px solid var(--aicl-color-focus, #2f6feb);
+  outline-offset: 2px;
+}
+
+.aicl-modal__body {
+  color: var(--aicl-modal-fg);
+  line-height: 1.6;
+}
+
+.aicl-modal__body > * {
+  margin: 0;
+}
+
+.aicl-modal__footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--aicl-space-2, 8px);
+  padding-top: var(--aicl-space-3, 12px);
+  border-top: var(--aicl-modal-border-width) solid var(--aicl-modal-border);
+}
+
+/* Sizes */
+
+.aicl-modal--small {
+  --aicl-modal-width: var(--aicl-size-sm, 400px);
+  --aicl-modal-padding: var(--aicl-space-4, 16px);
+}
+
+.aicl-modal--medium {
+  --aicl-modal-width: var(--aicl-size-md, 560px);
+  --aicl-modal-padding: var(--aicl-space-5, 24px);
+}
+
+.aicl-modal--large {
+  --aicl-modal-width: var(--aicl-size-lg, 760px);
+  --aicl-modal-padding: var(--aicl-space-6, 24px);
+}
+
+/* Dark theme: the same tokens, resolved against dark literals as fallback. */
+
+@media (prefers-color-scheme: dark) {
+  .aicl-modal {
+    --aicl-modal-overlay: var(--aicl-color-overlay, rgba(0, 0, 0, 0.6));
+    --aicl-modal-bg: var(--aicl-color-surface, #14181f);
+    --aicl-modal-fg: var(--aicl-color-text, #e2e8f0);
+    --aicl-modal-muted: var(--aicl-color-text-muted, #94a3b8);
+    --aicl-modal-border: var(--aicl-color-border, #2b323d);
+    --aicl-modal-shadow: var(--aicl-shadow-lg, 0 16px 40px rgba(0, 0, 0, 0.6));
+  }
+}

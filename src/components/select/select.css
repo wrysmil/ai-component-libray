@@ -1,0 +1,109 @@
+/*
+ * Select component styles.
+ *
+ * Every value is expressed through a design token with a literal fallback so
+ * that copying this single file into another project works without any extra
+ * setup. Override the tokens globally to theme the component.
+ */
+
+.aicl-select {
+  --aicl-select-bg: var(--aicl-color-surface, #ffffff);
+  --aicl-select-bg-disabled: var(--aicl-color-surface-hover, #f1f5f9);
+  --aicl-select-fg: var(--aicl-color-text, #0f172a);
+  --aicl-select-placeholder: var(--aicl-color-text-muted, #64748b);
+  --aicl-select-border: var(--aicl-color-border, #cbd5e1);
+  --aicl-select-border-hover: var(--aicl-color-primary, #2f6feb);
+  --aicl-select-radius: var(--aicl-radius-md, 8px);
+  --aicl-select-padding-y: var(--aicl-space-2, 8px);
+  --aicl-select-padding-x: var(--aicl-space-3, 12px);
+  --aicl-select-font-size: var(--aicl-font-size-sm, 14px);
+  --aicl-select-caret-size: var(--aicl-space-2, 8px);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--aicl-space-1, 4px);
+  width: 100%;
+}
+
+.aicl-select__label {
+  color: var(--aicl-select-fg);
+  font-size: var(--aicl-font-size-sm, 14px);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.aicl-select__control-wrapper {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.aicl-select__control {
+  width: 100%;
+  padding: var(--aicl-select-padding-y) var(--aicl-space-8, 32px)
+    var(--aicl-select-padding-y) var(--aicl-select-padding-x);
+  border: 1px solid var(--aicl-select-border);
+  border-radius: var(--aicl-select-radius);
+  background: var(--aicl-select-bg);
+  color: var(--aicl-select-fg);
+  font-family: inherit;
+  font-size: var(--aicl-select-font-size);
+  line-height: 1.4;
+  appearance: none;
+  cursor: pointer;
+  transition: border-color 120ms ease, box-shadow 120ms ease;
+}
+
+.aicl-select__control:hover:not(:disabled) {
+  border-color: var(--aicl-select-border-hover);
+}
+
+.aicl-select__control:focus-visible {
+  outline: 2px solid var(--aicl-color-focus, #2f6feb);
+  outline-offset: 1px;
+  border-color: var(--aicl-color-primary, #2f6feb);
+}
+
+.aicl-select__control:disabled {
+  background: var(--aicl-select-bg-disabled);
+  color: var(--aicl-select-placeholder);
+  cursor: not-allowed;
+}
+
+.aicl-select__caret {
+  position: absolute;
+  top: 50%;
+  right: var(--aicl-space-3, 12px);
+  width: var(--aicl-select-caret-size);
+  height: var(--aicl-select-caret-size);
+  border-right: 2px solid var(--aicl-select-fg);
+  border-bottom: 2px solid var(--aicl-select-fg);
+  transform: translateY(-70%) rotate(45deg);
+  pointer-events: none;
+}
+
+.aicl-select--disabled .aicl-select__caret {
+  border-right-color: var(--aicl-select-placeholder);
+  border-bottom-color: var(--aicl-select-placeholder);
+}
+
+.aicl-select--small {
+  --aicl-select-padding-y: var(--aicl-space-1, 4px);
+  --aicl-select-font-size: var(--aicl-font-size-xs, 12px);
+}
+
+.aicl-select--large {
+  --aicl-select-padding-y: var(--aicl-space-3, 12px);
+  --aicl-select-font-size: var(--aicl-font-size-md, 16px);
+}
+
+@media (prefers-color-scheme: dark) {
+  .aicl-select {
+    --aicl-select-bg: var(--aicl-color-surface, #14181f);
+    --aicl-select-bg-disabled: var(--aicl-color-surface-hover, #1f2937);
+    --aicl-select-fg: var(--aicl-color-text, #e5e7eb);
+    --aicl-select-placeholder: var(--aicl-color-text-muted, #9ca3af);
+    --aicl-select-border: var(--aicl-color-border, #374151);
+    --aicl-select-border-hover: var(--aicl-color-primary, #3b82f6);
+  }
+}

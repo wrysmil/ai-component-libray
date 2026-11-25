@@ -1,0 +1,64 @@
+{
+  "name": "ai-component-libray",
+  "version": "0.1.0",
+  "description": "An AI-friendly React component library with a search API, MCP server and component showcase site.",
+  "type": "module",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./styles/*": "./dist/styles/*"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "generate:manifest": "tsx src/manifest/generate.ts",
+    "build:lib": "tsc -p tsconfig.build.json && node scripts/copy-assets.mjs",
+    "build:site": "vite build --config site/vite.config.ts && tsx site/scripts/prerender.tsx",
+    "build": "npm run build:lib && npm run build:site",
+    "dev:server": "tsx watch src/server/index.ts",
+    "dev:site": "vite --config site/vite.config.ts",
+    "bench:search": "tsx scripts/bench-search.ts",
+    "verify": "npm run typecheck && npm test && npm run generate:manifest && git diff --exit-code src/manifest/manifest.json && npm run build"
+  },
+  "peerDependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.32.2",
+    "express": "5.3.0",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@testing-library/react": "16.3.3",
+    "@types/express": "^5.0.3",
+    "@types/node": "22.18.12",
+    "@types/react": "18.3.32",
+    "@types/react-dom": "18.3.7",
+    "@vitejs/plugin-react": "4.7.0",
+    "jsdom": "31.0.1",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-router-dom": "6.30.6",
+    "tsx": "4.23.15",
+    "typescript": "5.9.3",
+    "vite": "6.4.6",
+    "vitest": "3.2.7"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
