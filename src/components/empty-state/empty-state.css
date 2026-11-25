@@ -1,0 +1,96 @@
+/*
+ * EmptyState component styles.
+ *
+ * Every value is expressed through a design token with a literal fallback so
+ * that copying this single file into another project works without any extra
+ * setup. Override the tokens globally to theme the component.
+ */
+
+.aicl-empty-state {
+  --aicl-empty-state-fg: var(--aicl-color-text, #0f172a);
+  --aicl-empty-state-muted-fg: var(--aicl-color-text-secondary, #64748b);
+  --aicl-empty-state-surface: var(--aicl-color-surface, #ffffff);
+  --aicl-empty-state-icon-bg: var(--aicl-color-surface-hover, #f1f5f9);
+  --aicl-empty-state-icon-fg: var(--aicl-color-text-secondary, #64748b);
+  --aicl-empty-state-border: var(--aicl-color-border, #cbd5e1);
+  --aicl-empty-state-radius: var(--aicl-radius-lg, 12px);
+  --aicl-empty-state-padding-y: var(--aicl-space-8, 32px);
+  --aicl-empty-state-padding-x: var(--aicl-space-6, 24px);
+  --aicl-empty-state-gap: var(--aicl-space-3, 12px);
+  --aicl-empty-state-title-size: var(--aicl-font-size-md, 16px);
+  --aicl-empty-state-description-size: var(--aicl-font-size-sm, 14px);
+  --aicl-empty-state-max-width: var(--aicl-size-narrow, 36em);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--aicl-empty-state-gap);
+  padding: var(--aicl-empty-state-padding-y) var(--aicl-empty-state-padding-x);
+  border: 1px dashed var(--aicl-empty-state-border);
+  border-radius: var(--aicl-empty-state-radius);
+  background: var(--aicl-empty-state-surface);
+  color: var(--aicl-empty-state-fg);
+  font-family: inherit;
+  text-align: center;
+}
+
+.aicl-empty-state:focus-visible {
+  outline: 2px solid var(--aicl-color-focus, #2f6feb);
+  outline-offset: 2px;
+}
+
+.aicl-empty-state__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--aicl-empty-state-icon-size, 48px);
+  height: var(--aicl-empty-state-icon-size, 48px);
+  border-radius: var(--aicl-radius-full, 999px);
+  background: var(--aicl-empty-state-icon-bg);
+  color: var(--aicl-empty-state-icon-fg);
+  font-size: var(--aicl-font-size-xl, 24px);
+  line-height: 1;
+}
+
+.aicl-empty-state__title {
+  margin: 0;
+  color: var(--aicl-empty-state-fg);
+  font-size: var(--aicl-empty-state-title-size);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.aicl-empty-state__description {
+  margin: 0;
+  max-width: var(--aicl-empty-state-max-width);
+  color: var(--aicl-empty-state-muted-fg);
+  font-size: var(--aicl-empty-state-description-size);
+  line-height: 1.6;
+}
+
+.aicl-empty-state__action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--aicl-space-2, 8px);
+  margin-top: var(--aicl-space-1, 4px);
+}
+
+.aicl-empty-state--sm {
+  --aicl-empty-state-padding-y: var(--aicl-space-5, 20px);
+  --aicl-empty-state-padding-x: var(--aicl-space-4, 16px);
+  --aicl-empty-state-gap: var(--aicl-space-2, 8px);
+  --aicl-empty-state-title-size: var(--aicl-font-size-sm, 14px);
+  --aicl-empty-state-description-size: var(--aicl-font-size-xs, 12px);
+  --aicl-empty-state-icon-size: var(--aicl-space-8, 32px);
+}
+
+.aicl-empty-state--md {
+  --aicl-empty-state-padding-y: var(--aicl-space-8, 32px);
+  --aicl-empty-state-padding-x: var(--aicl-space-6, 24px);
+  --aicl-empty-state-gap: var(--aicl-space-3, 12px);
+  --aicl-empty-state-title-size: var(--aicl-font-size-md, 16px);
+  --aicl-empty-state-description-size: var(--aicl-font-size-sm, 14px);
+  --aicl-empty-state-icon-size: var(--aicl-space-12, 48px);
+}

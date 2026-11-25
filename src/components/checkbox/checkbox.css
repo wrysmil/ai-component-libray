@@ -1,0 +1,121 @@
+/*
+ * Checkbox component styles.
+ *
+ * Every value is expressed through a design token with a literal fallback so
+ * that copying this single file into another project works without any extra
+ * setup. Override the tokens globally to theme the component.
+ */
+
+.aicl-checkbox {
+  --aicl-checkbox-size: var(--aicl-space-4, 16px);
+  --aicl-checkbox-bg: var(--aicl-color-surface, #ffffff);
+  --aicl-checkbox-bg-checked: var(--aicl-color-primary, #2f6feb);
+  --aicl-checkbox-border: var(--aicl-color-border, #cbd5e1);
+  --aicl-checkbox-fg: var(--aicl-color-text, #0f172a);
+  --aicl-checkbox-muted: var(--aicl-color-text-muted, #64748b);
+  --aicl-checkbox-mark: var(--aicl-color-on-primary, #ffffff);
+  --aicl-checkbox-radius: var(--aicl-radius-sm, 4px);
+  --aicl-checkbox-gap: var(--aicl-space-2, 8px);
+  --aicl-checkbox-font-size: var(--aicl-font-size-sm, 14px);
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--aicl-checkbox-gap);
+  color: var(--aicl-checkbox-fg);
+  font-size: var(--aicl-checkbox-font-size);
+  line-height: 1.4;
+}
+
+.aicl-checkbox__control {
+  position: relative;
+  flex: 0 0 auto;
+  width: var(--aicl-checkbox-size);
+  height: var(--aicl-checkbox-size);
+  margin: 0;
+  border: 1px solid var(--aicl-checkbox-border);
+  border-radius: var(--aicl-checkbox-radius);
+  background: var(--aicl-checkbox-bg);
+  appearance: none;
+  cursor: pointer;
+  transition: background-color 120ms ease, border-color 120ms ease;
+}
+
+.aicl-checkbox__control:hover:not(:disabled) {
+  border-color: var(--aicl-checkbox-bg-checked);
+}
+
+.aicl-checkbox__control:focus-visible {
+  outline: 2px solid var(--aicl-color-focus, #2f6feb);
+  outline-offset: 2px;
+}
+
+.aicl-checkbox__control:disabled {
+  background: var(--aicl-color-surface-hover, #f1f5f9);
+  border-color: var(--aicl-checkbox-border);
+  cursor: not-allowed;
+}
+
+.aicl-checkbox__control:checked,
+.aicl-checkbox__control:indeterminate {
+  background: var(--aicl-checkbox-bg-checked);
+  border-color: var(--aicl-checkbox-bg-checked);
+}
+
+.aicl-checkbox__control:checked::after {
+  content: '';
+  position: absolute;
+  top: 12%;
+  left: 30%;
+  width: 26%;
+  height: 52%;
+  border-right: 2px solid var(--aicl-checkbox-mark);
+  border-bottom: 2px solid var(--aicl-checkbox-mark);
+  transform: rotate(45deg);
+}
+
+.aicl-checkbox__control:indeterminate::after {
+  content: '';
+  position: absolute;
+  top: 45%;
+  left: 22%;
+  width: 56%;
+  height: 2px;
+  background: var(--aicl-checkbox-mark);
+  transform: translateY(-50%);
+}
+
+.aicl-checkbox__label {
+  cursor: pointer;
+  user-select: none;
+}
+
+.aicl-checkbox--disabled .aicl-checkbox__label {
+  color: var(--aicl-checkbox-muted);
+  cursor: not-allowed;
+}
+
+@media (prefers-color-scheme: dark) {
+  .aicl-checkbox {
+    --aicl-checkbox-bg: var(--aicl-color-surface, #14181f);
+    --aicl-checkbox-bg-checked: var(--aicl-color-primary, #3b82f6);
+    --aicl-checkbox-border: var(--aicl-color-border, #374151);
+    --aicl-checkbox-fg: var(--aicl-color-text, #e5e7eb);
+    --aicl-checkbox-muted: var(--aicl-color-text-muted, #9ca3af);
+    --aicl-checkbox-mark: var(--aicl-color-on-primary, #0b1220);
+  }
+
+  .aicl-checkbox__control:disabled {
+    background: var(--aicl-color-surface-hover, #1f2937);
+  }
+}
+
+/* State hooks: the visual state itself is driven by the native `:checked` /
+   `:indeterminate` pseudo classes, these classes let a consumer target the
+   state of the checkbox from the outside. */
+.aicl-checkbox--checked .aicl-checkbox__control {
+  border-color: var(--aicl-checkbox-bg-checked);
+}
+
+.aicl-checkbox--indeterminate .aicl-checkbox__control {
+  border-color: var(--aicl-checkbox-bg-checked);
+}

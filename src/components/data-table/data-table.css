@@ -1,0 +1,169 @@
+/*
+ * DataTable component styles.
+ *
+ * Every value is expressed through a design token with a literal fallback so
+ * that copying this single file into another project works without any extra
+ * setup. Override the tokens globally to theme the component.
+ */
+
+.aicl-data-table {
+  --aicl-data-table-outline-width: var(--aicl-focus-outline-width, 2px);
+  --aicl-data-table-outline-offset: var(--aicl-focus-outline-offset, 2px);
+  --aicl-data-table-bg: var(--aicl-color-surface, #ffffff);
+  --aicl-data-table-fg: var(--aicl-color-text, #0f172a);
+  --aicl-data-table-muted: var(--aicl-color-text-muted, #64748b);
+  --aicl-data-table-border: var(--aicl-color-border, #cbd5e1);
+  --aicl-data-table-border-width: var(--aicl-border-width, 1px);
+  --aicl-data-table-header-bg: var(--aicl-color-surface-hover, #f1f5f9);
+  --aicl-data-table-row-hover: var(--aicl-color-surface-hover, #f1f5f9);
+  --aicl-data-table-accent: var(--aicl-color-primary, #2f6feb);
+  --aicl-data-table-radius: var(--aicl-radius-md, 8px);
+  --aicl-data-table-cell-padding: var(--aicl-space-3, 12px);
+  --aicl-data-table-font-size: var(--aicl-font-size-sm, 14px);
+
+  box-sizing: border-box;
+  width: 100%;
+  color: var(--aicl-data-table-fg);
+  font-family: inherit;
+  font-size: var(--aicl-data-table-font-size);
+}
+
+.aicl-data-table__scroller {
+  overflow-x: auto;
+  border: var(--aicl-data-table-border-width) solid var(--aicl-data-table-border);
+  border-radius: var(--aicl-data-table-radius);
+  background: var(--aicl-data-table-bg);
+}
+
+.aicl-data-table__table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--aicl-data-table-bg);
+  color: var(--aicl-data-table-fg);
+}
+
+.aicl-data-table__head {
+  background: var(--aicl-data-table-header-bg);
+}
+
+.aicl-data-table__header-cell {
+  padding: var(--aicl-data-table-cell-padding);
+  text-align: left;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--aicl-data-table-fg);
+  border-bottom: var(--aicl-data-table-border-width) solid var(--aicl-data-table-border);
+}
+
+.aicl-data-table__sort-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--aicl-space-1, 4px);
+  padding: var(--aicl-space-0, 0px);
+  border: 0;
+  background: var(--aicl-color-transparent, transparent);
+  color: inherit;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.aicl-data-table__sort-button:hover {
+  color: var(--aicl-data-table-accent);
+}
+
+.aicl-data-table__sort-button:focus-visible {
+  outline: var(--aicl-data-table-outline-width) solid var(--aicl-color-focus, #2f6feb);
+  outline-offset: var(--aicl-data-table-outline-offset);
+}
+
+.aicl-data-table__sort-indicator {
+  font-size: var(--aicl-font-size-xs, 12px);
+  line-height: 1;
+  color: var(--aicl-data-table-muted);
+}
+
+.aicl-data-table__sort-indicator[data-state='sorted'] {
+  color: var(--aicl-data-table-accent);
+}
+
+.aicl-data-table__row {
+  border-bottom: var(--aicl-data-table-border-width) solid var(--aicl-data-table-border);
+}
+
+.aicl-data-table__row:last-child {
+  border-bottom: 0;
+}
+
+.aicl-data-table__body .aicl-data-table__row:hover {
+  background: var(--aicl-data-table-row-hover);
+}
+
+.aicl-data-table__cell {
+  padding: var(--aicl-data-table-cell-padding);
+  text-align: left;
+  vertical-align: middle;
+  color: var(--aicl-data-table-fg);
+}
+
+.aicl-data-table__state {
+  padding: var(--aicl-space-6, 24px);
+  text-align: center;
+  color: var(--aicl-data-table-muted);
+}
+
+.aicl-data-table__pager {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--aicl-space-3, 12px);
+  padding: var(--aicl-space-3, 12px) 0 0;
+}
+
+.aicl-data-table__pager-button {
+  padding: var(--aicl-space-1, 4px) var(--aicl-space-3, 12px);
+  border: var(--aicl-data-table-border-width) solid var(--aicl-data-table-border);
+  border-radius: var(--aicl-radius-sm, 6px);
+  background: var(--aicl-data-table-bg);
+  color: var(--aicl-data-table-fg);
+  font: inherit;
+  cursor: pointer;
+}
+
+.aicl-data-table__pager-button:hover:not(:disabled) {
+  border-color: var(--aicl-data-table-accent);
+  color: var(--aicl-data-table-accent);
+}
+
+.aicl-data-table__pager-button:focus-visible {
+  outline: var(--aicl-data-table-outline-width) solid var(--aicl-color-focus, #2f6feb);
+  outline-offset: var(--aicl-data-table-outline-offset);
+}
+
+.aicl-data-table__pager-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.aicl-data-table__pager-indicator {
+  color: var(--aicl-data-table-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Dark theme: the same tokens, resolved against dark literals as fallback. */
+
+@media (prefers-color-scheme: dark) {
+  .aicl-data-table {
+    --aicl-data-table-bg: var(--aicl-color-surface, #14181f);
+    --aicl-data-table-fg: var(--aicl-color-text, #e2e8f0);
+    --aicl-data-table-muted: var(--aicl-color-text-muted, #94a3b8);
+    --aicl-data-table-border: var(--aicl-color-border, #2b323d);
+    --aicl-data-table-header-bg: var(--aicl-color-surface-hover, #1c212a);
+    --aicl-data-table-row-hover: var(--aicl-color-surface-hover, #1c212a);
+    --aicl-data-table-accent: var(--aicl-color-primary, #6ea8fe);
+  }
+}
+
+.aicl-data-table__sort-label {
+  font-weight: 600;
+}

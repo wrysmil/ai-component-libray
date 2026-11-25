@@ -1,0 +1,81 @@
+/*
+ * Tooltip component styles.
+ *
+ * Every value is expressed through a design token with a literal fallback so
+ * that copying this single file into another project works without any extra
+ * setup. Override the tokens globally to theme the component.
+ */
+
+.aicl-tooltip {
+  --aicl-tooltip-outline-width: var(--aicl-focus-outline-width, 2px);
+  --aicl-tooltip-outline-offset: var(--aicl-focus-outline-offset, 2px);
+  --aicl-tooltip-bg: var(--aicl-color-inverse, #0f172a);
+  --aicl-tooltip-fg: var(--aicl-color-on-inverse, #ffffff);
+  --aicl-tooltip-radius: var(--aicl-radius-sm, 6px);
+  --aicl-tooltip-padding-y: var(--aicl-space-1, 4px);
+  --aicl-tooltip-padding-x: var(--aicl-space-2, 8px);
+  --aicl-tooltip-offset: var(--aicl-space-2, 8px);
+  --aicl-tooltip-font-size: var(--aicl-font-size-xs, 12px);
+  --aicl-tooltip-shadow: var(--aicl-shadow-sm, 0 2px 8px rgba(15, 23, 42, 0.2));
+  --aicl-tooltip-max-width: var(--aicl-size-sm, 280px);
+
+  position: relative;
+  display: inline-flex;
+  box-sizing: border-box;
+}
+
+.aicl-tooltip:focus-visible {
+  outline: var(--aicl-tooltip-outline-width) solid var(--aicl-color-focus, #2f6feb);
+  outline-offset: var(--aicl-tooltip-outline-offset);
+}
+
+.aicl-tooltip__bubble {
+  position: absolute;
+  z-index: var(--aicl-z-tooltip, 1100);
+  box-sizing: border-box;
+  max-width: var(--aicl-tooltip-max-width);
+  padding: var(--aicl-tooltip-padding-y) var(--aicl-tooltip-padding-x);
+  border-radius: var(--aicl-tooltip-radius);
+  background: var(--aicl-tooltip-bg);
+  color: var(--aicl-tooltip-fg);
+  font-family: inherit;
+  font-size: var(--aicl-tooltip-font-size);
+  line-height: 1.4;
+  text-align: left;
+  box-shadow: var(--aicl-tooltip-shadow);
+  pointer-events: none;
+}
+
+.aicl-tooltip__bubble--top {
+  bottom: calc(100% + var(--aicl-tooltip-offset));
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.aicl-tooltip__bubble--bottom {
+  top: calc(100% + var(--aicl-tooltip-offset));
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.aicl-tooltip__bubble--left {
+  right: calc(100% + var(--aicl-tooltip-offset));
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.aicl-tooltip__bubble--right {
+  left: calc(100% + var(--aicl-tooltip-offset));
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Dark theme: the same tokens, resolved against dark literals as fallback. */
+
+@media (prefers-color-scheme: dark) {
+  .aicl-tooltip {
+    --aicl-tooltip-bg: var(--aicl-color-inverse, #f1f5f9);
+    --aicl-tooltip-fg: var(--aicl-color-on-inverse, #0f172a);
+    --aicl-tooltip-shadow: var(--aicl-shadow-sm, 0 2px 8px rgba(0, 0, 0, 0.5));
+  }
+}

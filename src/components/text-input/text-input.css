@@ -1,0 +1,111 @@
+/*
+ * TextInput component styles.
+ *
+ * Every value is expressed through a design token with a literal fallback so
+ * that copying this single file into another project works without any extra
+ * setup. Override the tokens globally to theme the component.
+ */
+
+.aicl-text-input {
+  --aicl-text-input-bg: var(--aicl-color-surface, #ffffff);
+  --aicl-text-input-bg-disabled: var(--aicl-color-surface-hover, #f1f5f9);
+  --aicl-text-input-fg: var(--aicl-color-text, #0f172a);
+  --aicl-text-input-placeholder: var(--aicl-color-text-muted, #64748b);
+  --aicl-text-input-border: var(--aicl-color-border, #cbd5e1);
+  --aicl-text-input-border-hover: var(--aicl-color-primary, #2f6feb);
+  --aicl-text-input-danger: var(--aicl-color-danger, #dc2626);
+  --aicl-text-input-muted: var(--aicl-color-text-muted, #64748b);
+  --aicl-text-input-radius: var(--aicl-radius-md, 8px);
+  --aicl-text-input-padding-y: var(--aicl-space-2, 8px);
+  --aicl-text-input-padding-x: var(--aicl-space-3, 12px);
+  --aicl-text-input-font-size: var(--aicl-font-size-sm, 14px);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--aicl-space-1, 4px);
+  width: 100%;
+}
+
+.aicl-text-input__label {
+  color: var(--aicl-text-input-fg);
+  font-size: var(--aicl-font-size-sm, 14px);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.aicl-text-input__required {
+  margin-left: var(--aicl-space-1, 4px);
+  color: var(--aicl-text-input-danger);
+}
+
+.aicl-text-input__control {
+  width: 100%;
+  padding: var(--aicl-text-input-padding-y) var(--aicl-text-input-padding-x);
+  border: 1px solid var(--aicl-text-input-border);
+  border-radius: var(--aicl-text-input-radius);
+  background: var(--aicl-text-input-bg);
+  color: var(--aicl-text-input-fg);
+  font-family: inherit;
+  font-size: var(--aicl-text-input-font-size);
+  line-height: 1.4;
+  transition: border-color 120ms ease, box-shadow 120ms ease;
+}
+
+.aicl-text-input__control::placeholder {
+  color: var(--aicl-text-input-placeholder);
+}
+
+.aicl-text-input__control:hover:not(:disabled) {
+  border-color: var(--aicl-text-input-border-hover);
+}
+
+.aicl-text-input__control:focus-visible {
+  outline: 2px solid var(--aicl-color-focus, #2f6feb);
+  outline-offset: 1px;
+  border-color: var(--aicl-color-primary, #2f6feb);
+}
+
+.aicl-text-input__control:disabled {
+  background: var(--aicl-text-input-bg-disabled);
+  color: var(--aicl-text-input-muted);
+  cursor: not-allowed;
+}
+
+.aicl-text-input--error .aicl-text-input__control {
+  border-color: var(--aicl-text-input-danger);
+}
+
+.aicl-text-input--error .aicl-text-input__control:focus-visible {
+  outline-color: var(--aicl-text-input-danger);
+}
+
+.aicl-text-input__hint {
+  margin: 0;
+  color: var(--aicl-text-input-muted);
+  font-size: var(--aicl-font-size-xs, 12px);
+  line-height: 1.4;
+}
+
+.aicl-text-input__error {
+  margin: 0;
+  color: var(--aicl-text-input-danger);
+  font-size: var(--aicl-font-size-xs, 12px);
+  line-height: 1.4;
+}
+
+@media (prefers-color-scheme: dark) {
+  .aicl-text-input {
+    --aicl-text-input-bg: var(--aicl-color-surface, #14181f);
+    --aicl-text-input-bg-disabled: var(--aicl-color-surface-hover, #1f2937);
+    --aicl-text-input-fg: var(--aicl-color-text, #e5e7eb);
+    --aicl-text-input-placeholder: var(--aicl-color-text-muted, #9ca3af);
+    --aicl-text-input-border: var(--aicl-color-border, #374151);
+    --aicl-text-input-border-hover: var(--aicl-color-primary, #3b82f6);
+    --aicl-text-input-danger: var(--aicl-color-danger, #f87171);
+    --aicl-text-input-muted: var(--aicl-color-text-muted, #9ca3af);
+  }
+}
+
+.aicl-text-input--disabled .aicl-text-input__label {
+  color: var(--aicl-text-input-muted);
+}

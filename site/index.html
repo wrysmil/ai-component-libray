@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232450c8'/><path d='M9 11h14M9 16h14M9 21h9' stroke='white' stroke-width='2.5' stroke-linecap='round'/></svg>"
+    />
+    <meta
+      name="description"
+      content="Showcase site of the AI component library: browse, search and play with every React component."
+    />
+    <title>AI Component Library — Showcase</title>
+    <script>
+      // Apply the persisted theme before the first paint so that the page never
+      // flashes in the wrong color scheme. Access to localStorage can throw
+      // (private mode, disabled storage), hence the try/catch.
+      (function () {
+        try {
+          var stored = window.localStorage.getItem('aicl-theme');
+          if (stored === 'light' || stored === 'dark') {
+            document.documentElement.setAttribute('data-theme', stored);
+          }
+        } catch (error) {
+          /* ignore — the default theme follows prefers-color-scheme */
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,89 @@
+/*
+ * Progress component styles.
+ *
+ * Every value is expressed through a design token with a literal fallback so
+ * that copying this single file into another project works without any extra
+ * setup. Override the tokens globally to theme the component.
+ */
+
+.aicl-progress {
+  --aicl-progress-track: var(--aicl-color-border, #cbd5e1);
+  --aicl-progress-fill: var(--aicl-color-primary, #2f6feb);
+  --aicl-progress-fg: var(--aicl-color-text, #0f172a);
+  --aicl-progress-muted-fg: var(--aicl-color-text-secondary, #64748b);
+  --aicl-progress-radius: var(--aicl-radius-full, 999px);
+  --aicl-progress-height: var(--aicl-space-2, 8px);
+  --aicl-progress-font-size: var(--aicl-font-size-xs, 12px);
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--aicl-space-2, 8px);
+  color: var(--aicl-progress-fg);
+  font-family: inherit;
+  font-size: var(--aicl-progress-font-size);
+  line-height: 1.2;
+}
+
+.aicl-progress--linear {
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+}
+
+.aicl-progress__track {
+  position: relative;
+  width: 100%;
+  height: var(--aicl-progress-height);
+  overflow: hidden;
+  border-radius: var(--aicl-progress-radius);
+  background: var(--aicl-progress-track);
+}
+
+.aicl-progress__indicator {
+  height: 100%;
+  border-radius: var(--aicl-progress-radius);
+  background: var(--aicl-progress-fill);
+  transition: width 160ms ease;
+}
+
+.aicl-progress:focus-visible {
+  outline: 2px solid var(--aicl-color-focus, #2f6feb);
+  outline-offset: 2px;
+}
+
+.aicl-progress__track:focus-visible {
+  outline: 2px solid var(--aicl-color-focus, #2f6feb);
+  outline-offset: 2px;
+}
+
+.aicl-progress__label {
+  color: var(--aicl-progress-muted-fg);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* Circular variant. */
+.aicl-progress--circular {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--aicl-space-1, 4px);
+}
+
+.aicl-progress__circle {
+  display: block;
+  width: var(--aicl-progress-circle-size, 48px);
+  height: var(--aicl-progress-circle-size, 48px);
+}
+
+.aicl-progress--circular .aicl-progress__track {
+  stroke: var(--aicl-progress-track);
+}
+
+.aicl-progress--circular .aicl-progress__indicator {
+  height: auto;
+  background: none;
+  stroke: var(--aicl-progress-fill);
+  transition: stroke-dashoffset 160ms ease;
+}

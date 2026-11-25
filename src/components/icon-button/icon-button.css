@@ -1,0 +1,108 @@
+/*
+ * IconButton component styles.
+ *
+ * Every value is expressed through a design token with a literal fallback so
+ * that copying this single file into another project works without any extra
+ * setup. Override the tokens globally to theme the component.
+ */
+
+.aicl-icon-button {
+  --aicl-icon-button-bg: transparent;
+  --aicl-icon-button-bg-hover: var(--aicl-color-surface-hover, #f1f5f9);
+  --aicl-icon-button-fg: var(--aicl-color-text, #0f172a);
+  --aicl-icon-button-border: transparent;
+  --aicl-icon-button-size: var(--aicl-space-8, 32px);
+  --aicl-icon-button-radius: var(--aicl-radius-md, 8px);
+  --aicl-icon-button-font-size: var(--aicl-font-size-md, 16px);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--aicl-icon-button-size);
+  height: var(--aicl-icon-button-size);
+  padding: 0;
+  border: 1px solid var(--aicl-icon-button-border);
+  border-radius: var(--aicl-icon-button-radius);
+  background: var(--aicl-icon-button-bg);
+  color: var(--aicl-icon-button-fg);
+  font-family: inherit;
+  font-size: var(--aicl-icon-button-font-size);
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease;
+}
+
+.aicl-icon-button:hover:not(:disabled) {
+  background: var(--aicl-icon-button-bg-hover);
+}
+
+.aicl-icon-button:focus-visible {
+  outline: 2px solid var(--aicl-color-focus, #2f6feb);
+  outline-offset: 2px;
+}
+
+.aicl-icon-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.aicl-icon-button--solid {
+  --aicl-icon-button-bg: var(--aicl-color-primary, #2f6feb);
+  --aicl-icon-button-bg-hover: var(--aicl-color-primary-hover, #2559c4);
+  --aicl-icon-button-fg: var(--aicl-color-on-primary, #ffffff);
+  --aicl-icon-button-border: var(--aicl-color-primary, #2f6feb);
+}
+
+.aicl-icon-button--outline {
+  --aicl-icon-button-bg: transparent;
+  --aicl-icon-button-bg-hover: var(--aicl-color-surface-hover, #f1f5f9);
+  --aicl-icon-button-fg: var(--aicl-color-text, #0f172a);
+  --aicl-icon-button-border: var(--aicl-color-border, #cbd5e1);
+}
+
+.aicl-icon-button--ghost {
+  --aicl-icon-button-bg: transparent;
+  --aicl-icon-button-bg-hover: var(--aicl-color-surface-hover, #f1f5f9);
+  --aicl-icon-button-fg: var(--aicl-color-text, #0f172a);
+  --aicl-icon-button-border: transparent;
+}
+
+.aicl-icon-button--small {
+  --aicl-icon-button-size: var(--aicl-space-7, 28px);
+  --aicl-icon-button-font-size: var(--aicl-font-size-sm, 14px);
+}
+
+.aicl-icon-button--large {
+  --aicl-icon-button-size: var(--aicl-space-10, 40px);
+  --aicl-icon-button-font-size: var(--aicl-font-size-lg, 20px);
+}
+
+.aicl-icon-button__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  .aicl-icon-button {
+    --aicl-icon-button-bg-hover: var(--aicl-color-surface-hover, #1f2937);
+    --aicl-icon-button-fg: var(--aicl-color-text, #e5e7eb);
+  }
+
+  .aicl-icon-button--solid {
+    --aicl-icon-button-bg: var(--aicl-color-primary, #3b82f6);
+    --aicl-icon-button-bg-hover: var(--aicl-color-primary-hover, #2563eb);
+    --aicl-icon-button-fg: var(--aicl-color-on-primary, #0b1220);
+    --aicl-icon-button-border: var(--aicl-color-primary, #3b82f6);
+  }
+
+  .aicl-icon-button--outline {
+    --aicl-icon-button-border: var(--aicl-color-border, #374151);
+  }
+}
+
+.aicl-icon-button--medium {
+  --aicl-icon-button-size: var(--aicl-space-8, 32px);
+  --aicl-icon-button-font-size: var(--aicl-font-size-md, 16px);
+}

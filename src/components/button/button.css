@@ -1,0 +1,127 @@
+/*
+ * Button component styles.
+ *
+ * Every value is expressed through a design token with a literal fallback so
+ * that copying this single file into another project works without any extra
+ * setup. Override the tokens globally to theme the component.
+ */
+
+.aicl-button {
+  --aicl-button-bg: var(--aicl-color-primary, #2f6feb);
+  --aicl-button-bg-hover: var(--aicl-color-primary-hover, #2559c4);
+  --aicl-button-fg: var(--aicl-color-on-primary, #ffffff);
+  --aicl-button-border: var(--aicl-color-primary, #2f6feb);
+  --aicl-button-radius: var(--aicl-radius-md, 8px);
+  --aicl-button-padding-y: var(--aicl-space-2, 8px);
+  --aicl-button-padding-x: var(--aicl-space-4, 16px);
+  --aicl-button-font-size: var(--aicl-font-size-sm, 14px);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--aicl-space-2, 8px);
+  padding: var(--aicl-button-padding-y) var(--aicl-button-padding-x);
+  border: 1px solid var(--aicl-button-border);
+  border-radius: var(--aicl-button-radius);
+  background: var(--aicl-button-bg);
+  color: var(--aicl-button-fg);
+  font-size: var(--aicl-button-font-size);
+  font-family: inherit;
+  font-weight: 500;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: background-color 120ms ease, border-color 120ms ease, opacity 120ms ease;
+}
+
+.aicl-button:hover:not(:disabled) {
+  background: var(--aicl-button-bg-hover);
+}
+
+.aicl-button:focus-visible {
+  outline: 2px solid var(--aicl-color-focus, #2f6feb);
+  outline-offset: 2px;
+}
+
+.aicl-button:disabled,
+.aicl-button--loading {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.aicl-button--secondary {
+  --aicl-button-bg: var(--aicl-color-surface, #ffffff);
+  --aicl-button-bg-hover: var(--aicl-color-surface-hover, #f1f5f9);
+  --aicl-button-fg: var(--aicl-color-text, #0f172a);
+  --aicl-button-border: var(--aicl-color-border, #cbd5e1);
+}
+
+.aicl-button--ghost {
+  --aicl-button-bg: transparent;
+  --aicl-button-bg-hover: var(--aicl-color-surface-hover, #f1f5f9);
+  --aicl-button-fg: var(--aicl-color-text, #0f172a);
+  --aicl-button-border: transparent;
+}
+
+.aicl-button--danger {
+  --aicl-button-bg: var(--aicl-color-danger, #dc2626);
+  --aicl-button-bg-hover: var(--aicl-color-danger-hover, #b91c1c);
+  --aicl-button-fg: var(--aicl-color-on-primary, #ffffff);
+  --aicl-button-border: var(--aicl-color-danger, #dc2626);
+}
+
+.aicl-button--small {
+  --aicl-button-padding-y: var(--aicl-space-1, 4px);
+  --aicl-button-padding-x: var(--aicl-space-3, 12px);
+  --aicl-button-font-size: var(--aicl-font-size-xs, 12px);
+}
+
+.aicl-button--large {
+  --aicl-button-padding-y: var(--aicl-space-3, 12px);
+  --aicl-button-padding-x: var(--aicl-space-5, 24px);
+  --aicl-button-font-size: var(--aicl-font-size-md, 16px);
+}
+
+.aicl-button__label {
+  display: inline-block;
+}
+
+.aicl-button__icon {
+  display: inline-flex;
+  align-items: center;
+}
+
+.aicl-button__spinner {
+  width: 1em;
+  height: 1em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: aicl-button-spin 700ms linear infinite;
+}
+
+@keyframes aicl-button-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aicl-button__spinner {
+    animation-duration: 2400ms;
+  }
+}
+
+/* Explicit variant classes — the base rule already is the primary look, the
+   modifier makes the variant targetable from the outside. */
+.aicl-button--primary {
+  --aicl-button-bg: var(--aicl-color-primary, #2f6feb);
+  --aicl-button-bg-hover: var(--aicl-color-primary-hover, #2559c4);
+  --aicl-button-fg: var(--aicl-color-on-primary, #ffffff);
+  --aicl-button-border: var(--aicl-color-primary, #2f6feb);
+}
+
+.aicl-button--medium {
+  --aicl-button-padding-y: var(--aicl-space-2, 8px);
+  --aicl-button-padding-x: var(--aicl-space-4, 16px);
+  --aicl-button-font-size: var(--aicl-font-size-sm, 14px);
+}

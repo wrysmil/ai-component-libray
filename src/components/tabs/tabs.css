@@ -1,0 +1,112 @@
+/*
+ * Tabs component styles.
+ *
+ * Every value is expressed through a design token with a literal fallback so
+ * that copying this single file into another project works without any extra
+ * setup. Override the tokens globally to theme the component.
+ */
+
+.aicl-tabs {
+  --aicl-tabs-fg: var(--aicl-color-text, #0f172a);
+  --aicl-tabs-muted-fg: var(--aicl-color-text-secondary, #64748b);
+  --aicl-tabs-border: var(--aicl-color-border, #cbd5e1);
+  --aicl-tabs-surface: var(--aicl-color-surface, #ffffff);
+  --aicl-tabs-surface-hover: var(--aicl-color-surface-hover, #f1f5f9);
+  --aicl-tabs-accent: var(--aicl-color-primary, #2f6feb);
+  --aicl-tabs-accent-soft: var(--aicl-color-primary-soft, #e0ecff);
+  --aicl-tabs-radius: var(--aicl-radius-md, 8px);
+  --aicl-tabs-gap: var(--aicl-space-1, 4px);
+  --aicl-tabs-padding-y: var(--aicl-space-2, 8px);
+  --aicl-tabs-padding-x: var(--aicl-space-4, 16px);
+  --aicl-tabs-font-size: var(--aicl-font-size-sm, 14px);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--aicl-space-3, 12px);
+  color: var(--aicl-tabs-fg);
+  font-size: var(--aicl-tabs-font-size);
+  font-family: inherit;
+}
+
+.aicl-tabs__list {
+  display: flex;
+  align-items: center;
+  gap: var(--aicl-tabs-gap);
+  flex-wrap: wrap;
+}
+
+.aicl-tabs__tab {
+  padding: var(--aicl-tabs-padding-y) var(--aicl-tabs-padding-x);
+  border: 1px solid transparent;
+  border-radius: var(--aicl-tabs-radius);
+  background: transparent;
+  color: var(--aicl-tabs-muted-fg);
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 500;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
+}
+
+.aicl-tabs__tab:hover:not(:disabled) {
+  background: var(--aicl-tabs-surface-hover);
+  color: var(--aicl-tabs-fg);
+}
+
+.aicl-tabs__tab:focus-visible {
+  outline: 2px solid var(--aicl-color-focus, #2f6feb);
+  outline-offset: 2px;
+}
+
+.aicl-tabs__tab:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Line variant: underlined tabs separated by a shared border. */
+.aicl-tabs--line .aicl-tabs__list {
+  --aicl-tabs-gap: var(--aicl-space-0, 0);
+
+  border-bottom: 1px solid var(--aicl-tabs-border);
+}
+
+.aicl-tabs--line .aicl-tabs__tab {
+  border: none;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  background: transparent;
+}
+
+.aicl-tabs--line .aicl-tabs__tab:hover:not(:disabled) {
+  background: transparent;
+  color: var(--aicl-tabs-fg);
+}
+
+.aicl-tabs--line .aicl-tabs__tab--selected {
+  color: var(--aicl-tabs-accent);
+  border-bottom-color: var(--aicl-tabs-accent);
+}
+
+/* Pill variant: segmented control look. */
+.aicl-tabs--pill .aicl-tabs__list {
+  padding: var(--aicl-space-1, 4px);
+  border: 1px solid var(--aicl-tabs-border);
+  border-radius: var(--aicl-tabs-radius);
+  background: var(--aicl-tabs-surface);
+  width: fit-content;
+}
+
+.aicl-tabs--pill .aicl-tabs__tab--selected {
+  background: var(--aicl-tabs-accent);
+  color: var(--aicl-color-on-primary, #ffffff);
+}
+
+.aicl-tabs--pill .aicl-tabs__tab--selected:hover:not(:disabled) {
+  background: var(--aicl-color-primary-hover, #2559c4);
+  color: var(--aicl-color-on-primary, #ffffff);
+}
+
+.aicl-tabs__panel {
+  color: var(--aicl-tabs-fg);
+}
